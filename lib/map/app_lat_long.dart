@@ -15,7 +15,7 @@ class NamedMapPoint{
     required this.name,
   });
 }
-
+// коммент добрыня 
 class MoscowLocation extends MapPoint {
  const MoscowLocation({
    super.lat = 55.7522200,
