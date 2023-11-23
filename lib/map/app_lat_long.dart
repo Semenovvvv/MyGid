@@ -16,6 +16,8 @@ class NamedMapPoint{
   });
 }
 // коммент добрыня 
+//коммент колямба
+
 class MoscowLocation extends MapPoint {
  const MoscowLocation({
    super.lat = 55.7522200,
