@@ -1,0 +1,1 @@
+export 'package:prj/features/profile/profile_screen/view/view.dart';
