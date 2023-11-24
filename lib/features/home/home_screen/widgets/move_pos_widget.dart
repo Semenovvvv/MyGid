@@ -19,15 +19,8 @@ class _MovePosition extends State<MovePosition> {
         ),
         child:  IconButton(
           color: Colors.grey,
-<<<<<<< HEAD
-          onPressed: (){
-            
-          },
-          icon: Icon(Icons.navigation_outlined), iconSize:  MediaQuery.of(context).size.width * 0.08),
-=======
           onPressed: (){},
           icon: const Icon(Icons.navigation_outlined), iconSize:  MediaQuery.of(context).size.width * 0.08),
->>>>>>> a1da6c55aaedf14827b4525717554605873f4839
       )
     );
   }

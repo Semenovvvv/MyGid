@@ -73,11 +73,8 @@ class _ProfileState extends State<Profile> {
           
             child:Stack(
               children: [
-<<<<<<< HEAD
                 Column(
               children: [
-=======
->>>>>>> a1da6c55aaedf14827b4525717554605873f4839
                 //шапка
                 Container(
                   height: MediaQuery.of(context).size.height * 0.15,
@@ -108,19 +105,11 @@ class _ProfileState extends State<Profile> {
                         ),
                   child: Stack(
                     children: [
-<<<<<<< HEAD
                       //контейнер, который около аватарки
                       Align(
                         alignment: Alignment.bottomCenter,
                         child:    Container(
                         height: MediaQuery.of(context).size.height * 0.115,
-=======
-                      
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child:    Container(
-                        height: MediaQuery.of(context).size.height * 0.16,
->>>>>>> a1da6c55aaedf14827b4525717554605873f4839
                         decoration: const BoxDecoration(
                           color: Color.fromARGB(210, 210, 210, 210)
                         ),
@@ -131,7 +120,6 @@ class _ProfileState extends State<Profile> {
                       Align(
                         alignment: Alignment.bottomCenter,
                         child:   Container(
-<<<<<<< HEAD
                         height:  MediaQuery.of(context).size.height * 0.115,
                         decoration: const BoxDecoration(
                           color: Color.fromARGB(243,243,243,243),
@@ -353,25 +341,11 @@ class _ProfileState extends State<Profile> {
                         )
                       ),
                 //список маршрутов
-=======
-                        height:  MediaQuery.of(context).size.height * 0.5,
-                        decoration: const BoxDecoration(
-                          color: Color.fromARGB(229,229,229,229),
-                          borderRadius: BorderRadius.only(topLeft:  Radius.circular(32), topRight:Radius.circular(32) )
-                        ),
-                      ),
-                      )
-                    ],
-                  ),
-                ), 
-                //низ
->>>>>>> a1da6c55aaedf14827b4525717554605873f4839
                 Stack(
                   children: [
                     Align(
                       alignment: Alignment.bottomCenter,
                       child:    Container(
-<<<<<<< HEAD
                       height: MediaQuery.of(context).size.height * 0.5,
                       decoration: const BoxDecoration(
                         color: Color.fromARGB(243, 243, 243, 243),
@@ -468,26 +442,6 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
             ),
-=======
-                      height: MediaQuery.of(context).size.height * 1,
-                      decoration: const BoxDecoration(
-                        color: Color.fromARGB(229, 229, 229, 229)
-                      ),
-                    ),
-                    ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child:   Container(
-                      height:  MediaQuery.of(context).size.height * 0.6,
-                      decoration: const BoxDecoration(
-                        color: Color.fromARGB(255, 255, 255, 255),
-                        borderRadius: BorderRadius.only(topLeft:  Radius.circular(32), topRight:Radius.circular(32) )
-                      ),
-                    ),
-                    )
-                  ],
-                ),
->>>>>>> a1da6c55aaedf14827b4525717554605873f4839
               ],
             )
              
