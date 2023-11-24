@@ -1,24 +1,84 @@
 import 'package:flutter/material.dart';
 import 'package:prj/widgets/navigation_bar.dart';
 
+class Route{
+  String name;
+  int time;
+  int countSteps;
+  int distance;
+  int countComments;
+  List<String> categories = [];
+  Route(
+    {required this.name, 
+      this.time = 0, 
+      this.countSteps = 0, 
+      this.distance = 0, 
+      this.countComments = 0,
+      required this.categories}
+  );
+}
+
 class Profile extends StatefulWidget{
+  const Profile({super.key});
+
 
   @override
   State<Profile> createState() => _ProfileState();
 }
 
 class _ProfileState extends State<Profile> {
+  Color _color = Colors.blue;
+
+  List<Route> routes = [
+    Route(name: 'Маршрут по Волге', time: 15, countSteps: 3000, distance: 3, countComments: 15, categories: ['Архитектура']),
+    Route(name: 'Чебоксарский залив', time: 19, countSteps: 3460, distance: 7, countComments: 18, categories: ['История', 'Военное дело']),
+    Route(name: 'Красная площадь', time: 47, countSteps: 8740, distance: 25, countComments: 65, categories: ['Архитектура', 'Военное дело']),
+    // Добавьте свои маршруты сюда
+  ];
+
+  Widget buildRow(int index) {
+    List<Widget> containers = [];
+    for (String text in routes[index].categories) {
+      containers.add(
+        Container(
+          margin: EdgeInsets.fromLTRB(0, 0, 6, 0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(15)),
+            color: Color.fromARGB(255, 150, 197, 156)
+          ),
+          child: Container(
+            margin: EdgeInsets.fromLTRB(8,3,8,3),
+            child: Text(text,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+                fontWeight: FontWeight.w400
+              ),
+            ),
+          )
+        )
+      );
+    }
+    return Row(
+      children: containers,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         //backgroundColor:Color.fromARGB(213, 210, 210, 210),
         body: SingleChildScrollView(
-            child: Column(
+          
+            child:Stack(
               children: [
+                Column(
+              children: [
+                //шапка
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.1,
-                  decoration: BoxDecoration(
+                  height: MediaQuery.of(context).size.height * 0.15,
+                  decoration: const BoxDecoration(
                     color: Color.fromARGB(210, 210, 210, 210)
                    ),
                   child: Row(
@@ -38,41 +98,355 @@ class _ProfileState extends State<Profile> {
                     ],
                   ),
                 ),
+                //центр
                 Container(
-                  decoration: BoxDecoration(
-                          color: Color.fromARGB(210, 210, 210, 210)
+                  decoration: const BoxDecoration(
+                          color: Color.fromARGB(210, 228, 228, 228),
                         ),
                   child: Stack(
                     children: [
-                      Text("111"),
+                      //контейнер, который около аватарки
                       Align(
                         alignment: Alignment.bottomCenter,
                         child:    Container(
-                        height: MediaQuery.of(context).size.height * 0.16,
-                        decoration: BoxDecoration(
+                        height: MediaQuery.of(context).size.height * 0.115,
+                        decoration: const BoxDecoration(
                           color: Color.fromARGB(210, 210, 210, 210)
                         ),
+                        
                       ),
                       ),
                      
                       Align(
                         alignment: Alignment.bottomCenter,
                         child:   Container(
-                        height:  MediaQuery.of(context).size.height * 0.6,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(topLeft:  Radius.circular(30), topRight:Radius.circular(30) )
+                        height:  MediaQuery.of(context).size.height * 0.115,
+                        decoration: const BoxDecoration(
+                          color: Color.fromARGB(243,243,243,243),
+                          borderRadius: BorderRadius.only(topLeft:  Radius.circular(32), topRight:Radius.circular(32) )
+                        ),
+                        child:  Align(
+                          
+                          alignment:  const Alignment(0.1, 0.1),
+                          child:Column(
+                            crossAxisAlignment:CrossAxisAlignment.start, 
+                            children: [
+                              const Text(
+                                'Сергей Кузьмин',
+                                style:TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                  color:Colors.black,
+                                ),
+                                ),
+                              Text(
+                                textAlign: TextAlign.left,
+                                'г.Чебоксары',
+                                style:TextStyle(
+                                  fontSize: 12,
+                                  color:Colors.black.withOpacity(0.5),
+                                ),
+                                ),
+                                
+                            ],
+                          )
                         ),
                       ),
-                      )
-                    
+                      ),
                     ],
                   ),
                 ), 
+                //Кнопка подписаться и три точки
+                 Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Stack(
+                          children: [
+                            Container(
+                              height: MediaQuery.of(context).size.height * 0.08,
+                              decoration: const BoxDecoration(
+                                color: Color.fromARGB(243, 243, 243, 243)
+                              ),
+                              padding:const EdgeInsets.symmetric(horizontal: 13.0),
+                              child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  // Обработчик нажатия на кнопку
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  minimumSize: const Size(320, 50),
+                                  backgroundColor: const Color.fromARGB(77, 3, 255, 45) ,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12)
+                                  )
+                                  
+                                ),
+                                child: const Text(
+                                  'Редактировать',
+                                  style:TextStyle(
+                                    color: Colors.white,
+                                  )
+                                  ),
+                              ),
+                              Container(
+                                width: 50,
+                                height: 50,
+                                decoration: const BoxDecoration(
+                                  color: Color.fromARGB(231, 231, 231, 231),
+                                  borderRadius: BorderRadius.all(Radius.circular(12))
+                                ),
+                                child:IconButton(
+                                onPressed: (){},
+                                icon: const Icon(Icons.more_horiz),
+                              )
+                              )
+                            ],
+                          ) ,
+                            ),
+                          
+                          ],
+                        )   
+                      ),
+                  //Маршруты,подпищики,избранное
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Stack(
+                      children: [
+                        Container(
+                              height: MediaQuery.of(context).size.height * 0.16,
+                              
+                              decoration: const BoxDecoration(
+                                color: Color.fromARGB(243, 243, 243, 243)
+                              ),
+                              padding:const EdgeInsets.symmetric(horizontal: 25.0,vertical: 22),
+                              child:  Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  
+                                  Column(
+                                    children: [
+                                      Align(  
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Маршруты',
+                                              style: TextStyle(
+                                                color: Colors.black.withOpacity(0.3),
+                                                fontSize:16
+                                              ),
+                                            ),
+                                             const Text(
+                                              '193',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 21
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      
+                                    ],
+                                  ),
+                                  
+                                  Column(
+                                    children: [
+                                      Align(  
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Подписчики',
+                                              style: TextStyle(
+                                                color: Colors.black.withOpacity(0.3),
+                                                fontSize:16
+                                              ),
+                                            ),
+                                             const Text(
+                                              '102',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 21
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      Align(  
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Избранное',
+                                              style: TextStyle(
+                                                color: Colors.black.withOpacity(0.3),
+                                                fontSize:16
+                                              ),
+                                            ),
+                                             const Text(
+                                              '14',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 21
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      
+                                    ],
+                                  ),
+                                ],
+                                
+                              ),
+                        )
+                      ],
+                    ),
+                  ),
+                  //переключалка маршруты, отзывы,фотографии
+                  
+                  Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Stack(
+                          children: [
+                            Container(
+                              height: MediaQuery.of(context).size.height * 0.11,
+                              padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 13 ),
+                              decoration: const BoxDecoration(
+                                color: Color.fromARGB(243, 243, 243, 243),
+                                
+                              ),
+                              child:Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 2,vertical: 2 ),
+                                decoration: const BoxDecoration(
+                                  color: Color.fromARGB(231, 231, 231, 231),
+                                  borderRadius: BorderRadius.all(Radius.circular(12) )
+                                ),
+                                child:const Row(
+                                  children: [
+                                    
+                                  ],
+                                ),
+                              )
+                              
+                            ),
+                          ],
+                        )
+                      ),
+                //список маршрутов
+                Stack(
+                  children: [
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child:    Container(
+                      height: MediaQuery.of(context).size.height * 0.5,
+                      decoration: const BoxDecoration(
+                        color: Color.fromARGB(243, 243, 243, 243),
+                      ),
+                      child: ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: routes.length,
+                        itemBuilder: (context, index){
+                          return Container(
+                            margin: EdgeInsets.fromLTRB(16,0, 16, 16),
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(Radius.circular(20))
+                            ),
+                            child:  Column(children: [
+                              ListTile(
+                                title: Text(
+                                  routes[index].name,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                subtitle:  Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              '${routes[index].time} мин  ${routes[index].countSteps} шага (-ов)',
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                            Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Icon(Icons.star, color: Color.fromARGB(255, 249, 194, 98)),
+                                                SizedBox(width: 4.0),
+                                                Text('4.5'),
+                                                Text('   ${routes[index].countComments} оценок'), // Замените на свое число отзывов
+                                              ],
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                    
+                                    // Добавляем список категорий
+                                    Container(
+                                      margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                      child: buildRow(index)
+                                    ),
+                                  ],
+                                ),
+                                onTap: (){},
+                              ),
+                            ]),
+                          );
+                        },
+                      )
+                    ),
+                    ),
+                    
+                    
+                  ],
+                ),
+                
+                
+              ],
+            ),
+            //аватарка
+            Positioned(
+              top:70,
+              left: 40,
+              child: Container(
+                width: 100,
+                height: 100,
+                decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Color.fromRGBO(243, 243, 243, 1),
+                ),
+              ),
+            ),
+            Positioned(
+              top:75,
+              left: 45,
+              child: Container(
+                width: 90,
+                height: 90,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.blueGrey
+                ),
+              ),
+            ),
               ],
             )
+             
           ),
-        bottomNavigationBar: BottomNavBar(),
+        bottomNavigationBar: const BottomNavBar(),
       ),
     );
   }
