@@ -11,7 +11,7 @@ class _MovePosition extends State<MovePosition> {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: Alignment(0.85, 0.6),
+      alignment: const Alignment(0.85, 0.6),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -20,7 +20,7 @@ class _MovePosition extends State<MovePosition> {
         child:  IconButton(
           color: Colors.grey,
           onPressed: (){},
-          icon: Icon(Icons.navigation_outlined), iconSize:  MediaQuery.of(context).size.width * 0.08),
+          icon: const Icon(Icons.navigation_outlined), iconSize:  MediaQuery.of(context).size.width * 0.08),
       )
     );
   }

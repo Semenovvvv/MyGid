@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:prj/widgets/navigation_bar.dart';
 
 class Profile extends StatefulWidget{
+  const Profile({super.key});
+
 
   @override
   State<Profile> createState() => _ProfileState();
@@ -16,9 +18,10 @@ class _ProfileState extends State<Profile> {
         body: SingleChildScrollView(
             child: Column(
               children: [
+                //шапка
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.1,
-                  decoration: BoxDecoration(
+                  height: MediaQuery.of(context).size.height * 0.15,
+                  decoration: const BoxDecoration(
                     color: Color.fromARGB(210, 210, 210, 210)
                    ),
                   child: Row(
@@ -38,18 +41,19 @@ class _ProfileState extends State<Profile> {
                     ],
                   ),
                 ),
+                //центр
                 Container(
-                  decoration: BoxDecoration(
-                          color: Color.fromARGB(210, 210, 210, 210)
+                  decoration: const BoxDecoration(
+                          color: Color.fromARGB(210, 228, 228, 228),
                         ),
                   child: Stack(
                     children: [
-                      Text("111"),
+                      
                       Align(
                         alignment: Alignment.bottomCenter,
                         child:    Container(
                         height: MediaQuery.of(context).size.height * 0.16,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Color.fromARGB(210, 210, 210, 210)
                         ),
                       ),
@@ -58,21 +62,44 @@ class _ProfileState extends State<Profile> {
                       Align(
                         alignment: Alignment.bottomCenter,
                         child:   Container(
-                        height:  MediaQuery.of(context).size.height * 0.6,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(topLeft:  Radius.circular(30), topRight:Radius.circular(30) )
+                        height:  MediaQuery.of(context).size.height * 0.5,
+                        decoration: const BoxDecoration(
+                          color: Color.fromARGB(229,229,229,229),
+                          borderRadius: BorderRadius.only(topLeft:  Radius.circular(32), topRight:Radius.circular(32) )
                         ),
                       ),
                       )
-                    
                     ],
                   ),
                 ), 
+                //низ
+                Stack(
+                  children: [
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child:    Container(
+                      height: MediaQuery.of(context).size.height * 1,
+                      decoration: const BoxDecoration(
+                        color: Color.fromARGB(229, 229, 229, 229)
+                      ),
+                    ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child:   Container(
+                      height:  MediaQuery.of(context).size.height * 0.6,
+                      decoration: const BoxDecoration(
+                        color: Color.fromARGB(255, 255, 255, 255),
+                        borderRadius: BorderRadius.only(topLeft:  Radius.circular(32), topRight:Radius.circular(32) )
+                      ),
+                    ),
+                    )
+                  ],
+                ),
               ],
             )
           ),
-        bottomNavigationBar: BottomNavBar(),
+        bottomNavigationBar: const BottomNavBar(),
       ),
     );
   }

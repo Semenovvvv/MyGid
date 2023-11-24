@@ -16,10 +16,10 @@ class _ChatState extends State<Chat> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromARGB(210, 210, 210, 210),
-          surfaceTintColor: Color.fromARGB(210, 210, 210, 210),
+          backgroundColor: const Color.fromARGB(210, 210, 210, 210),
+          surfaceTintColor: const Color.fromARGB(210, 210, 210, 210),
           elevation: 0,
-          title: Text("Чаты"),
+          title: const Text("Чаты"),
           actions: <Widget>[
             IconButton(
               icon: Icon(
@@ -40,7 +40,7 @@ class _ChatState extends State<Chat> {
           ],
         ),
         body: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color.fromARGB(210, 210, 210, 210),
               ),
               child:  Container(
@@ -56,14 +56,14 @@ class _ChatState extends State<Chat> {
                     leading: Container(
                       height: MediaQuery.of(context).size.width * 0.1,
                       width: MediaQuery.of(context).size.width * 0.1,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Color.fromARGB(210, 210, 210, 210),
                         borderRadius: BorderRadius.all(Radius.circular(30))
                       ),
-                      child:  Icon(Icons.person), 
+                      child:  const Icon(Icons.person), 
                     ),
-                    title: Text("Иван Иванов"),
-                    subtitle: Text(
+                    title: const Text("Иван Иванов"),
+                    subtitle: const Text(
                       "Привет! Lorem Ipsum is simply dummy text of the printing and typesetting industry",
                       overflow: TextOverflow.ellipsis,
                       ),
@@ -73,7 +73,7 @@ class _ChatState extends State<Chat> {
               ),
             ),
           ),
-        bottomNavigationBar: BottomNavBar(),
+        bottomNavigationBar: const BottomNavBar(),
       ),
     );
   }

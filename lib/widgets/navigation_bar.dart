@@ -51,7 +51,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             color: _selectedButtonIndex == 4 ? Colors.black : Colors.grey,
             onPressed: (){setState(() {
               _selectedButtonIndex = 4;
-              Navigator.pushNamed(context, '/friends');
+             // Navigator.pushNamed(context, '/friends');
             });}, 
             icon: Icon(Icons.groups_outlined, size: iconSize)),
 

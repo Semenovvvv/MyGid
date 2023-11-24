@@ -39,10 +39,10 @@ class _RoutesState extends State<Routes> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromARGB(210, 210, 210, 210),
-          surfaceTintColor: Color.fromARGB(210, 210, 210, 210),
+          backgroundColor: const Color.fromARGB(210, 210, 210, 210),
+          surfaceTintColor: const Color.fromARGB(210, 210, 210, 210),
           elevation: 0,
-          title: Text("Маршруты"),
+          title: const Text("Маршруты"),
           actions: <Widget>[
             IconButton(
               icon: Icon(
@@ -63,7 +63,7 @@ class _RoutesState extends State<Routes> {
           ],
         ),
         body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Color.fromARGB(210, 210, 210, 210),
           ),
           child: Container(
@@ -74,12 +74,12 @@ class _RoutesState extends State<Routes> {
             child: Column(
               children: [
                 Container(
-                  margin: EdgeInsets.all(16),
+                  margin: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(25.0),
                     color: Colors.grey[200],
                   ),
-                  child: TextField(
+                  child: const TextField(
                     decoration: InputDecoration(
                       prefixIcon: Icon(Icons.search),
                       hintText: 'Поиск',
@@ -94,7 +94,7 @@ class _RoutesState extends State<Routes> {
                       return ListTile(
                         title: Text(
                           routes[index].name,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -137,7 +137,7 @@ class _RoutesState extends State<Routes> {
           //   ],
           // ),
         ),
-        bottomNavigationBar: BottomNavBar(),
+        bottomNavigationBar: const BottomNavBar(),
       ),
     );
   }

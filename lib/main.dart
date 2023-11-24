@@ -7,7 +7,7 @@ import 'package:prj/features/routes/routes_screen/view/routes_screen.dart';
 void main() {
   runApp(const Application());
 }
-// [[[]]]
+
 class Application extends StatelessWidget {
   const Application({super.key});
 
@@ -28,7 +28,7 @@ class Application extends StatelessWidget {
           //   );
           case '/routes':
             return PageRouteBuilder(
-              pageBuilder: (context, animation, secondaryAnimation) => Routes(),
+              pageBuilder: (context, animation, secondaryAnimation) => const Routes(),
               transitionsBuilder: (context, animation, secondaryAnimation, child) {
                 // Убираем анимацию
                 return child;
@@ -38,7 +38,7 @@ class Application extends StatelessWidget {
             );
           case '/':
             return PageRouteBuilder(
-              pageBuilder: (context, animation, secondaryAnimation) => Home(),
+              pageBuilder: (context, animation, secondaryAnimation) => const Home(),
               transitionsBuilder: (context, animation, secondaryAnimation, child) {
                 // Убираем анимацию
                 return child;
@@ -48,7 +48,7 @@ class Application extends StatelessWidget {
           );
           case '/profile':
             return PageRouteBuilder(
-              pageBuilder: (context, animation, secondaryAnimation) => Profile(),
+              pageBuilder: (context, animation, secondaryAnimation) => const Profile(),
               transitionsBuilder: (context, animation, secondaryAnimation, child) {
                 // Убираем анимацию
                 return child;
@@ -68,7 +68,7 @@ class Application extends StatelessWidget {
           //   );
           case '/chat':
             return PageRouteBuilder(
-              pageBuilder: (context, animation, secondaryAnimation) => Chat(),
+              pageBuilder: (context, animation, secondaryAnimation) => const Chat(),
               transitionsBuilder: (context, animation, secondaryAnimation, child) {
                 // Убираем анимацию
                 return child;
