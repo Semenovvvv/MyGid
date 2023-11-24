@@ -32,6 +32,7 @@ class _ChatState extends State<Chat> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+<<<<<<< HEAD
           iconTheme: IconThemeData(color: Colors.white),
           leading: IconButton(
             onPressed: (){ Navigator.pop(context);},
@@ -49,6 +50,12 @@ class _ChatState extends State<Chat> {
               fontSize: 26
             ),
           ),
+=======
+          backgroundColor: const Color.fromARGB(210, 210, 210, 210),
+          surfaceTintColor: const Color.fromARGB(210, 210, 210, 210),
+          elevation: 0,
+          title: const Text("Чаты"),
+>>>>>>> a1da6c55aaedf14827b4525717554605873f4839
           actions: <Widget>[
             IconButton(
               icon: Icon(
@@ -72,7 +79,11 @@ class _ChatState extends State<Chat> {
         ),
         body: Container(
               decoration: const BoxDecoration(
+<<<<<<< HEAD
                 color: Color.fromARGB(255, 77, 139, 83)
+=======
+                color: Color.fromARGB(210, 210, 210, 210),
+>>>>>>> a1da6c55aaedf14827b4525717554605873f4839
               ),
               child:  Container(
               decoration: BoxDecoration(
@@ -85,17 +96,30 @@ class _ChatState extends State<Chat> {
                 {
                   return ListTile(
                     leading: Container(
+<<<<<<< HEAD
                       height: MediaQuery.of(context).size.width * 0.13,
                       width: MediaQuery.of(context).size.width * 0.13,
+=======
+                      height: MediaQuery.of(context).size.width * 0.1,
+                      width: MediaQuery.of(context).size.width * 0.1,
+>>>>>>> a1da6c55aaedf14827b4525717554605873f4839
                       decoration: const BoxDecoration(
                         color: Color.fromARGB(210, 210, 210, 210),
                         borderRadius: BorderRadius.all(Radius.circular(30))
                       ),
+<<<<<<< HEAD
                       child:  const Icon(Icons.person,), 
                     ),
                     title: Text(members[index].name),
                     subtitle: Text(
                       members[index].lastMessage,
+=======
+                      child:  const Icon(Icons.person), 
+                    ),
+                    title: const Text("Иван Иванов"),
+                    subtitle: const Text(
+                      "Привет! Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+>>>>>>> a1da6c55aaedf14827b4525717554605873f4839
                       overflow: TextOverflow.ellipsis,
                       ),
                     onTap: (){},

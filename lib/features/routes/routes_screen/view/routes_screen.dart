@@ -68,6 +68,7 @@ class _RoutesState extends State<Routes> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+<<<<<<< HEAD
           iconTheme: IconThemeData(color: Colors.white),
           leading: IconButton(
             onPressed: (){ Navigator.pop(context);},
@@ -85,6 +86,12 @@ class _RoutesState extends State<Routes> {
               fontSize: 24
             ),
           ),
+=======
+          backgroundColor: const Color.fromARGB(210, 210, 210, 210),
+          surfaceTintColor: const Color.fromARGB(210, 210, 210, 210),
+          elevation: 0,
+          title: const Text("Маршруты"),
+>>>>>>> a1da6c55aaedf14827b4525717554605873f4839
           actions: <Widget>[
             IconButton(
               icon: Icon(
@@ -108,7 +115,11 @@ class _RoutesState extends State<Routes> {
         ),
         body: Container(
           decoration: const BoxDecoration(
+<<<<<<< HEAD
             color: const Color.fromARGB(255, 77, 139, 83),
+=======
+            color: Color.fromARGB(210, 210, 210, 210),
+>>>>>>> a1da6c55aaedf14827b4525717554605873f4839
           ),
           child: Container(
             decoration: BoxDecoration(
@@ -145,11 +156,20 @@ class _RoutesState extends State<Routes> {
                   child: ListView.builder(
                     itemCount: routes.length,
                     itemBuilder: (context, index){
+<<<<<<< HEAD
                       return Container(
                         margin: EdgeInsets.fromLTRB(16,0, 16, 16),
                         decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.all(Radius.circular(20))
+=======
+                      return ListTile(
+                        title: Text(
+                          routes[index].name,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+>>>>>>> a1da6c55aaedf14827b4525717554605873f4839
                         ),
                         child:  Column(children: [
                           ListTile(
