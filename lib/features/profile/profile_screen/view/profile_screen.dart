@@ -1,6 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:prj/widgets/navigation_bar.dart';
 
+class Route{
+  String name;
+  int time;
+  int countSteps;
+  int distance;
+  int countComments;
+  List<String> categories = [];
+  Route(
+    {required this.name, 
+      this.time = 0, 
+      this.countSteps = 0, 
+      this.distance = 0, 
+      this.countComments = 0,
+      required this.categories}
+  );
+}
+
 class Profile extends StatefulWidget{
   const Profile({super.key});
 
@@ -10,6 +27,42 @@ class Profile extends StatefulWidget{
 }
 
 class _ProfileState extends State<Profile> {
+
+  List<Route> routes = [
+    Route(name: 'Маршрут по Волге', time: 15, countSteps: 3000, distance: 3, countComments: 15, categories: ['Архитектура']),
+    Route(name: 'Чебоксарский залив', time: 19, countSteps: 3460, distance: 7, countComments: 18, categories: ['История', 'Военное дело']),
+    Route(name: 'Красная площадь', time: 47, countSteps: 8740, distance: 25, countComments: 65, categories: ['Архитектура', 'Военное дело']),
+    // Добавьте свои маршруты сюда
+  ];
+
+  Widget buildRow(int index) {
+    List<Widget> containers = [];
+    for (String text in routes[index].categories) {
+      containers.add(
+        Container(
+          margin: EdgeInsets.fromLTRB(0, 0, 6, 0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(15)),
+            color: Color.fromARGB(255, 150, 197, 156)
+          ),
+          child: Container(
+            margin: EdgeInsets.fromLTRB(8,3,8,3),
+            child: Text(text,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+                fontWeight: FontWeight.w400
+              ),
+            ),
+          )
+        )
+      );
+    }
+    return Row(
+      children: containers,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -292,29 +345,67 @@ class _ProfileState extends State<Profile> {
                     Align(
                       alignment: Alignment.bottomCenter,
                       child:    Container(
-                      height: MediaQuery.of(context).size.height * 1,
+                      height: MediaQuery.of(context).size.height * 0.5,
                       decoration: const BoxDecoration(
                         color: Color.fromARGB(243, 243, 243, 243),
                       ),
-                      child: ListView.separated(
-                        physics: const NeverScrollableScrollPhysics(),
-                        padding: const EdgeInsets.only(top:0),
-                        itemCount: 5,
-                        separatorBuilder: (context,index) =>  Container(
-                          //color: Colors.blue,
-                          ),
-                          itemBuilder: (context,index){
-                            return Container(
-                              margin: const EdgeInsets.symmetric(horizontal: 10,vertical: 4),
-                              //padding:const EdgeInsets.all(16), 
-                              height: MediaQuery.of(context).size.height * 0.2,
-                              decoration: const BoxDecoration(
-                              color: Color.fromARGB(255,255,255,255),
-                              borderRadius: BorderRadius.only(topLeft:  Radius.circular(32), topRight:Radius.circular(32),bottomLeft: Radius.circular(32),bottomRight: Radius.circular(32) )
-                        ),
-                            );
-                          },
-                        ),
+                      child: ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: routes.length,
+                        itemBuilder: (context, index){
+                          return Container(
+                            margin: EdgeInsets.fromLTRB(16,0, 16, 16),
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(Radius.circular(20))
+                            ),
+                            child:  Column(children: [
+                              ListTile(
+                                title: Text(
+                                  routes[index].name,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                subtitle:  Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              '${routes[index].time} мин  ${routes[index].countSteps} шага (-ов)',
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                            Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Icon(Icons.star, color: Color.fromARGB(255, 249, 194, 98)),
+                                                SizedBox(width: 4.0),
+                                                Text('4.5'),
+                                                Text('   ${routes[index].countComments} оценок'), // Замените на свое число отзывов
+                                              ],
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                    
+                                    // Добавляем список категорий
+                                    Container(
+                                      margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                      child: buildRow(index)
+                                    ),
+                                  ],
+                                ),
+                                onTap: (){},
+                              ),
+                            ]),
+                          );
+                        },
+                      )
                     ),
                     ),
                     

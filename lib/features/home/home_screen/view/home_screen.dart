@@ -23,7 +23,7 @@ class _HomeState extends State<Home> {
             Align(
               alignment: Alignment.bottomCenter,
               child: BottomNavBar()
-              ),
+            ),
             MovePosition()
           ],
         )  
