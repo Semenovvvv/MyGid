@@ -147,6 +147,7 @@ class _ProfileState extends State<Profile> {
                           icon: Icon(
                             Icons.navigate_before,
                             size: MediaQuery.of(context).size.width * 0.08,
+                            color: const Color.fromARGB(255, 255, 255, 255),
                             )
                         ),
                       ),
@@ -471,8 +472,8 @@ class _ProfileState extends State<Profile> {
                 height: 90,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Color.fromRGBO(0, 91, 91, 1.0),
-                  //image: DecorationImage(image: AssetImage("lib/assets/images/bg_profile.png"), fit: BoxFit.cover),
+                  //color: Color.fromRGBO(0, 91, 91, 1.0),
+                  image: DecorationImage(image: AssetImage("lib/assets/images/avatar.jpg"), fit: BoxFit.cover),
                 ),
               ),
             ),
