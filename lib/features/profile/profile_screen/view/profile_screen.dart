@@ -57,6 +57,7 @@ class _ProfileTabBarState extends State<ProfileTabBar> with SingleTickerProvider
           automaticallyImplyLeading: false, // убираем стрелочку
           backgroundColor: Color.fromARGB(255, 231, 231, 231),
           bottom: TabBar(
+            indicatorPadding: EdgeInsets.all(6),
             controller: _tabController,
             labelColor: Color.fromARGB(255, 51, 50, 50), // цвет текста выбранного таба
             unselectedLabelColor: Color.fromARGB(255, 194, 194, 194), // цвет текста невыбранного таба
@@ -162,6 +163,18 @@ class _ProfileState extends State<Profile> {
                         alignment: Alignment.bottomLeft,
                         child:    Container(
                         height: MediaQuery.of(context).size.height * 0.115,
+                        
+                        decoration: const BoxDecoration(
+                          color: Color.fromARGB(255, 16, 100, 13),
+                          
+                        ),
+                        
+                      ),
+                      ),
+                      Align(
+                        alignment: Alignment.bottomLeft,
+                        child:    Container(
+                        height: MediaQuery.of(context).size.height * 0.115,
                         width: MediaQuery.of(context).size.width * 0.4,
                         decoration: const BoxDecoration(
                           color: Color.fromARGB(255, 246, 245, 244),
@@ -170,7 +183,7 @@ class _ProfileState extends State<Profile> {
                         
                       ),
                       ),
-                     
+                      
                       Align(
                         alignment: Alignment.bottomRight,
                         child:   Container(
