@@ -188,6 +188,7 @@ class _ProfileState extends State<Profile> {
                       Align(
                         alignment: Alignment.bottomRight,
                         child:   Container(
+                          padding: EdgeInsets.only(top: 20),
                         height:  MediaQuery.of(context).size.height * 0.115,
                         width:  MediaQuery.of(context).size.width * 0.6,
                         decoration: const BoxDecoration(
