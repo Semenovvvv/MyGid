@@ -134,7 +134,7 @@ class _ProfileState extends State<Profile> {
                 Container(
                   height: MediaQuery.of(context).size.height * 0.15,
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 16, 100, 13),
+                  image: DecorationImage(image: AssetImage("lib/assets/images/bg.jpg"), fit: BoxFit.cover),
                    ),
                   child: Row(
                     children: [
