@@ -121,7 +121,7 @@ class _RoutesState extends State<Routes> {
                   margin: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                      border: Border.all(
-                      color: Color.fromARGB(255, 194, 194, 194),
+                      color: Color.fromARGB(255, 243, 243, 243),
                       width: 1,
                     ),
                     borderRadius: BorderRadius.circular(25.0),

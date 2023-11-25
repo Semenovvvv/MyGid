@@ -1,3 +1,4 @@
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:prj/widgets/navigation_bar.dart';
 
@@ -24,6 +25,61 @@ class Profile extends StatefulWidget{
 
   @override
   State<Profile> createState() => _ProfileState();
+}
+
+class ProfileTabBar extends StatefulWidget {
+  @override
+  _ProfileTabBarState createState() => _ProfileTabBarState();
+}
+
+class _ProfileTabBarState extends State<ProfileTabBar> with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(50.0), // change height here
+
+        child: AppBar(
+          automaticallyImplyLeading: false, // убираем стрелочку
+          backgroundColor: Color.fromARGB(255, 231, 231, 231),
+          bottom: TabBar(
+            controller: _tabController,
+            labelColor: Color.fromARGB(255, 51, 50, 50), // цвет текста выбранного таба
+            unselectedLabelColor: Color.fromARGB(255, 194, 194, 194), // цвет текста невыбранного таба
+            indicator: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: Color.fromARGB(255, 255, 255, 255)),
+            indicatorSize: TabBarIndicatorSize.tab,
+            tabs: [
+              Tab(
+                text: 'Маршруты',
+              ),
+              Tab(
+                text: 'Фотографии',
+              ),
+              Tab(
+                text: 'Отзывы',
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 class _ProfileState extends State<Profile> {
@@ -68,9 +124,8 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        //backgroundColor:Color.fromARGB(213, 210, 210, 210),
+        backgroundColor:Color.fromARGB(255, 243, 243, 243),
         body: SingleChildScrollView(
-          
             child:Stack(
               children: [
                 Column(
@@ -78,8 +133,8 @@ class _ProfileState extends State<Profile> {
                 //шапка
                 Container(
                   height: MediaQuery.of(context).size.height * 0.15,
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(210, 210, 210, 210)
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 16, 100, 13),
                    ),
                   child: Row(
                     children: [
@@ -88,7 +143,7 @@ class _ProfileState extends State<Profile> {
                         child: IconButton(
                           onPressed: (){
                             Navigator.pop(context);
-                          }, 
+                          },
                           icon: Icon(
                             Icons.navigate_before,
                             size: MediaQuery.of(context).size.width * 0.08,
@@ -100,43 +155,42 @@ class _ProfileState extends State<Profile> {
                 ),
                 //центр
                 Container(
-                  decoration: const BoxDecoration(
-                          color: Color.fromARGB(210, 228, 228, 228),
-                        ),
                   child: Stack(
                     children: [
                       //контейнер, который около аватарки
                       Align(
-                        alignment: Alignment.bottomCenter,
+                        alignment: Alignment.bottomLeft,
                         child:    Container(
                         height: MediaQuery.of(context).size.height * 0.115,
+                        width: MediaQuery.of(context).size.width * 0.4,
                         decoration: const BoxDecoration(
-                          color: Color.fromARGB(210, 210, 210, 210)
+                          color: Color.fromARGB(255, 246, 245, 244),
+                          borderRadius: BorderRadius.only(topLeft:  Radius.circular(32) )
                         ),
                         
                       ),
                       ),
                      
                       Align(
-                        alignment: Alignment.bottomCenter,
+                        alignment: Alignment.bottomRight,
                         child:   Container(
                         height:  MediaQuery.of(context).size.height * 0.115,
+                        width:  MediaQuery.of(context).size.width * 0.6,
                         decoration: const BoxDecoration(
-                          color: Color.fromARGB(243,243,243,243),
-                          borderRadius: BorderRadius.only(topLeft:  Radius.circular(32), topRight:Radius.circular(32) )
+                          color: Color.fromARGB(255, 246, 245, 244),
+                          borderRadius: BorderRadius.only(topRight:Radius.circular(32) )
                         ),
                         child:  Align(
-                          
-                          alignment:  const Alignment(0.1, 0.1),
+                          alignment:  Alignment.bottomLeft,
                           child:Column(
-                            crossAxisAlignment:CrossAxisAlignment.start, 
+                            crossAxisAlignment:CrossAxisAlignment.start,
                             children: [
                               const Text(
                                 'Сергей Кузьмин',
                                 style:TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 20,
-                                  color:Colors.black,
+                                  color:Color.fromARGB(255, 51, 50, 50),
                                 ),
                                 ),
                               Text(
@@ -170,20 +224,20 @@ class _ProfileState extends State<Profile> {
                               child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              ElevatedButton(
+                              TextButton(
                                 onPressed: () {
                                   // Обработчик нажатия на кнопку
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  minimumSize: const Size(320, 50),
-                                  backgroundColor: const Color.fromARGB(77, 3, 255, 45) ,
+                                  minimumSize: Size(MediaQuery.of(context).size.width * 0.77, 50),
+                                  backgroundColor: const Color.fromARGB(255, 77, 139, 83),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(12)
                                   )
                                   
                                 ),
                                 child: const Text(
-                                  'Редактировать',
+                                  'Подписаться',
                                   style:TextStyle(
                                     color: Colors.white,
                                   )
@@ -198,6 +252,7 @@ class _ProfileState extends State<Profile> {
                                 ),
                                 child:IconButton(
                                 onPressed: (){},
+                                color: Color.fromARGB(255, 194, 194, 194),
                                 icon: const Icon(Icons.more_horiz),
                               )
                               )
@@ -311,35 +366,13 @@ class _ProfileState extends State<Profile> {
                     ),
                   ),
                   //переключалка маршруты, отзывы,фотографии
-                  
-                  Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Stack(
-                          children: [
-                            Container(
-                              height: MediaQuery.of(context).size.height * 0.11,
-                              padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 13 ),
-                              decoration: const BoxDecoration(
-                                color: Color.fromARGB(243, 243, 243, 243),
-                                
-                              ),
-                              child:Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 2,vertical: 2 ),
-                                decoration: const BoxDecoration(
-                                  color: Color.fromARGB(231, 231, 231, 231),
-                                  borderRadius: BorderRadius.all(Radius.circular(12) )
-                                ),
-                                child:const Row(
-                                  children: [
-                                    
-                                  ],
-                                ),
-                              )
-                              
-                            ),
-                          ],
-                        )
-                      ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.1,
+                    child: ProfileTabBar(),
+                  ),
+                ),
                 //список маршрутов
                 Stack(
                   children: [
@@ -420,25 +453,26 @@ class _ProfileState extends State<Profile> {
             //аватарка
             Positioned(
               top:70,
-              left: 40,
+              left: 35,
               child: Container(
                 width: 100,
                 height: 100,
                 decoration: const BoxDecoration(
                 shape: BoxShape.circle,
-                color: Color.fromRGBO(243, 243, 243, 1),
+                color: Color.fromRGBO(246, 245, 244, 1.0),
                 ),
               ),
             ),
             Positioned(
               top:75,
-              left: 45,
+              left: 40,
               child: Container(
                 width: 90,
                 height: 90,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.blueGrey
+                  color: Color.fromRGBO(0, 91, 91, 1.0),
+                  //image: DecorationImage(image: AssetImage("lib/assets/images/bg_profile.png"), fit: BoxFit.cover),
                 ),
               ),
             ),

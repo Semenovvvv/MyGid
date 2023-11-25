@@ -15,10 +15,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
     double iconSize = MediaQuery.of(context).size.width * 0.08;
     return Container(
       height:  MediaQuery.of(context).size.width * 0.14,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: Colors.white,
+        border: Border.all(width: 1, color: const Color.fromARGB(
+            255, 243, 243, 243)),
         borderRadius: BorderRadius.only(
-            topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+            topRight: Radius.circular(32), topLeft: Radius.circular(32)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
