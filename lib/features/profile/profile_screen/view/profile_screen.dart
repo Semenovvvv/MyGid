@@ -32,7 +32,7 @@ class ProfileTabBar extends StatefulWidget {
   _ProfileTabBarState createState() => _ProfileTabBarState();
 }
 
-class _ProfileTabBarState extends State<ProfileTabBar> with SingleTickerProviderStateMixin {
+class  _ProfileTabBarState extends State<ProfileTabBar> with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
