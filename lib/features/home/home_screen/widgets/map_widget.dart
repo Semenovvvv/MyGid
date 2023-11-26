@@ -37,7 +37,7 @@ class _MapScreenState extends State<MapScreen> {
       children: [
         YandexMap(
           logoAlignment :const MapAlignment(horizontal: HorizontalAlignment.center, vertical: VerticalAlignment.top),
-          //mapObjects: _getPlacemarkObjects(context),
+          mapObjects: _getPlacemarkObjects(context),
           rotateGesturesEnabled: false,
           tiltGesturesEnabled: false,
           onMapCreated: (controller) async {
@@ -103,65 +103,86 @@ class _MapScreenState extends State<MapScreen> {
     );
   }
 
-  /// Метод для генерации точек на карте
-  // List<MapPoint> _getMapPoints() {
-  // return const [
-  //   MapPoint(name: 'Чгу-Г', latitude: 56.14594588, longitude: 47.22423157),
-  //   MapPoint(name: 'Парк Амазония', latitude: 56.14553259, longitude: 47.21056531)
-  // ];
-  // }
+  // Метод для генерации точек на карте
+  List<NamedMapPoint> _getMapPoints() {
+  return const [
+    NamedMapPoint(name: 'Чгу-Г', lat: 56.14594588, long: 47.22423157),
+    NamedMapPoint(name: 'Парк Амазония', lat: 56.14553259, long: 47.21056531)
+  ];
+  }
 
-  /// Метод для генерации объектов маркеров для отображения на карте
-//   List<PlacemarkMapObject> _getPlacemarkObjects(BuildContext context) {
-//   return _getMapPoints()
-//       .map(
-//         (point) => PlacemarkMapObject(
-//           onTap: (_, __) => showModalBottomSheet(
-//            context: context,
-//            builder: (context) => _ModalBodyView(
-//              point: point,
-//            ),
-//           ),
-//           mapId: MapObjectId('MapObject $point'),
-//           point: Point(latitude: point.latitude, longitude: point.longitude),
-//           opacity: 1,
-//           isDraggable: false,
-//           icon: PlacemarkIcon.single(
-//             PlacemarkIconStyle(
-//               image: BitmapDescriptor.fromAssetImage(
-//                 'lib/assets/icons/placemark_icon.png',
-//               ),
-//               scale: 0.2,
-//             ),
-//           ),
-//         ),
-//       )
-//       .toList();
-//   }
-// }
+  // Метод для генерации объектов маркеров для отображения на карте
+  List<PlacemarkMapObject> _getPlacemarkObjects(BuildContext context) {
+  return _getMapPoints()
+      .map(
+        (point) => PlacemarkMapObject(
+          onTap: (_, __) => showModalBottomSheet(
+            context: context,
+            builder: (context) => _ModalBodyView(
+              point: point,
+            ),
+          ),
+          mapId: MapObjectId('MapObject $point'),
+          point: Point(latitude: point.lat, longitude: point.long),
+          opacity: 1,
+          isDraggable: false,
+          icon: PlacemarkIcon.single(
+            PlacemarkIconStyle(
+              image: BitmapDescriptor.fromAssetImage(
+                'lib/assets/icons/placemark_icon.png',
+              ),
+              scale: 0.2,
+            ),
+          ),
+        ),
+      )
+      .toList();
+  }
+}
 
 /// Содержимое модального окна с информацией о точке на карте
-// class _ModalBodyView extends StatelessWidget {
-//  const _ModalBodyView({required this.point});
+class _ModalBodyView extends StatelessWidget {
+ const _ModalBodyView({required this.point});
 
-//  final MapPoint point;
+ final NamedMapPoint point;
 
-//  @override
-//  Widget build(BuildContext context) {
-//    return Padding(
-//      padding: const EdgeInsets.symmetric(vertical: 40),
-//      child: Column(mainAxisSize: MainAxisSize.min, children: [
-//        Text(point.name, style: const TextStyle(fontSize: 20)),
-//        const SizedBox(height: 20),
-//        Text(
-//          '${point.latitude}, ${point.longitude}',
-//          style: const TextStyle(
-//            fontSize: 16,
-//            color: Colors.grey,
-//          ),
-//        ),
-//      ]),
-//    );
-//  }
-// }
+ @override
+ Widget build(BuildContext context) {
+  return DraggableScrollableSheet(
+      initialChildSize: 1, // Начальная высота всплывающего окна (40%)
+      minChildSize: 1, // Минимальная высота всплывающего окна (20%)
+      maxChildSize: 1, // Максимальная высота всплывающего окна (90%)
+      builder: (BuildContext context, ScrollController scrollController) {
+        return Container(
+          color: Colors.white,
+          child: Column(
+            children: <Widget>[
+              Container(
+                height: 10.0,
+                width: 40.0,
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  controller: scrollController,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      // Ваш контент всплывающего окна здесь
+                      ListTile(title: Text('Элемент 1')),
+                      ListTile(title: Text('Элемент 2')),
+                      ListTile(title: Text('Элемент n')),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+ }
 }

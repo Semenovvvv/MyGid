@@ -1,22 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:prj/assets/styles/text_styles.dart';
+import 'package:prj/features/routes/route_screen/view/route_screen.dart';
 import 'package:prj/widgets/navigation_bar.dart';
-
-class Route{
-  String name;
-  int time;
-  int countSteps;
-  int distance;
-  int countComments;
-  List<String> categories = [];
-  Route(
-    {required this.name, 
-      this.time = 0, 
-      this.countSteps = 0, 
-      this.distance = 0, 
-      this.countComments = 0,
-      required this.categories}
-  );
-}
+import 'package:prj/models/route_model.dart';
 
 class Routes extends StatefulWidget {
   const Routes({ Key? key }) : super(key: key);
@@ -27,12 +13,6 @@ class Routes extends StatefulWidget {
 
 class _RoutesState extends State<Routes> {
   var index = 1;
-  List<Route> routes = [
-    Route(name: 'Маршрут по Волге', time: 15, countSteps: 3000, distance: 3, countComments: 15, categories: ['Архитектура']),
-    Route(name: 'Чебоксарский залив', time: 19, countSteps: 3460, distance: 7, countComments: 18, categories: ['История', 'Военное дело']),
-    Route(name: 'Красная площадь', time: 47, countSteps: 8740, distance: 25, countComments: 65, categories: ['Архитектура', 'Военное дело']),
-    // Добавьте свои маршруты сюда
-  ];
 
   Widget buildRow(int index) {
     List<Widget> containers = [];
@@ -79,11 +59,8 @@ class _RoutesState extends State<Routes> {
           backgroundColor: const Color.fromARGB(255, 77, 139, 83),
           surfaceTintColor: const Color.fromARGB(255, 77, 139, 83),
           elevation: 0,
-          title: const Text("Маршруты",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 24
-            ),
+          title: Text("Маршруты",
+            style: TextStyles.appBarTitleStyle
           ),
           actions: <Widget>[
             IconButton(
@@ -174,7 +151,7 @@ class _RoutesState extends State<Routes> {
                                         Row(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
-                                            Icon(Icons.star, color: Color.fromARGB(255, 249, 194, 98)),
+                                            const Icon(Icons.star, color: Color.fromARGB(255, 249, 194, 98)),
                                             SizedBox(width: 4.0),
                                             Text('4.5'),
                                             Text('   ${routes[index].countComments} оценок'), // Замените на свое число отзывов
@@ -192,7 +169,25 @@ class _RoutesState extends State<Routes> {
                                 ),
                               ],
                             ),
-                            onTap: (){},
+                            onTap: (){
+                              Navigator.push(context, 
+                                             PageRouteBuilder(
+                                pageBuilder: (context, animation, secondaryAnimation) => RoutePage(index: index),
+                                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                  const begin = Offset(0.0, 1.0);
+                                  const end = Offset.zero;
+                                  const curve = Curves.easeInOut;
+
+                                  var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                                  var offsetAnimation = animation.drive(tween);
+
+                                  return SlideTransition(
+                                    position: offsetAnimation,
+                                    child: child,
+                                  );
+                                },
+                              ));
+                            },
                           ),
                         ]),
                       );

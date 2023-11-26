@@ -1,110 +1,32 @@
-import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:prj/features/profile/profile_screen/widgets/profile_tabbar.dart';
+import 'package:prj/models/route_model.dart';
 import 'package:prj/widgets/navigation_bar.dart';
-
-class Route{
-  String name;
-  int time;
-  int countSteps;
-  int distance;
-  int countComments;
-  List<String> categories = [];
-  Route(
-    {required this.name, 
-      this.time = 0, 
-      this.countSteps = 0, 
-      this.distance = 0, 
-      this.countComments = 0,
-      required this.categories}
-  );
-}
 
 class Profile extends StatefulWidget{
   const Profile({super.key});
-
 
   @override
   State<Profile> createState() => _ProfileState();
 }
 
-class ProfileTabBar extends StatefulWidget {
-  @override
-  _ProfileTabBarState createState() => _ProfileTabBarState();
-}
-
-class _ProfileTabBarState extends State<ProfileTabBar> with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 3, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 20,
-      margin: EdgeInsets.fromLTRB(16, 0, 16, 10),
-      decoration: BoxDecoration(
-        color: Color.fromARGB(255, 231, 231, 231),
-        borderRadius: BorderRadius.all(Radius.circular(16))
-      ),
-      child: TabBar(
-        indicatorPadding: EdgeInsets.all(6),
-        controller: _tabController,
-        labelColor: Color.fromARGB(255, 51, 50, 50), // цвет текста выбранного таба
-        unselectedLabelColor: Color.fromARGB(255, 194, 194, 194), // цвет текста невыбранного таба
-        indicator: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            color: Color.fromARGB(255, 255, 255, 255)),
-        indicatorSize: TabBarIndicatorSize.tab,
-        tabs: [
-          Tab(
-            text: 'Маршруты',
-          ),
-          Tab(
-            text: 'Фотографии',
-          ),
-          Tab(
-            text: 'Отзывы',
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 class _ProfileState extends State<Profile> {
-  Color _color = Colors.blue;
-
-  List<Route> routes = [
-    Route(name: 'Маршрут по Волге', time: 15, countSteps: 3000, distance: 3, countComments: 15, categories: ['Архитектура']),
-    Route(name: 'Чебоксарский залив', time: 19, countSteps: 3460, distance: 7, countComments: 18, categories: ['История', 'Военное дело']),
-    Route(name: 'Красная площадь', time: 47, countSteps: 8740, distance: 25, countComments: 65, categories: ['Архитектура', 'Военное дело']),
-    // Добавьте свои маршруты сюда
-  ];
 
   Widget buildRow(int index) {
     List<Widget> containers = [];
     for (String text in routes[index].categories) {
       containers.add(
         Container(
-          margin: EdgeInsets.fromLTRB(0, 0, 6, 0),
-          decoration: BoxDecoration(
+          margin: const EdgeInsets.fromLTRB(0, 0, 6, 0),
+          decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(15)),
             color: Color.fromARGB(255, 150, 197, 156)
           ),
           child: Container(
             margin: EdgeInsets.fromLTRB(8,3,8,3),
             child: Text(text,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w400
@@ -132,7 +54,7 @@ class _ProfileState extends State<Profile> {
                 //шапка
                 Container(
                   height: MediaQuery.of(context).size.height * 0.15,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Color.fromARGB(255, 16, 100, 13),
                    ),
                   child: Row(
@@ -377,7 +299,7 @@ class _ProfileState extends State<Profile> {
                   alignment: Alignment.bottomCenter,
                   child: Container(
                     height: MediaQuery.of(context).size.height * 0.1,
-                    child: ProfileTabBar(),
+                    child: const ProfileTabBar(),
                   ),
                 ),
                 //список маршрутов
@@ -480,8 +402,7 @@ class _ProfileState extends State<Profile> {
               ),
             ),
               ],
-            )
-             
+            )  
           ),
         bottomNavigationBar: const BottomNavBar(),
       ),
