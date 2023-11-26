@@ -8,15 +8,15 @@ const MapPoint({
  });
 }
 
-class NamedMapPoint{
+class NamedMapPoint extends MapPoint{
   final String name;
 
   const NamedMapPoint({
     required this.name,
+    required super.lat, 
+    required super.long,
   });
 }
-// коммент добрыня 
-//коммент колямба
 
 class MoscowLocation extends MapPoint {
  const MoscowLocation({
