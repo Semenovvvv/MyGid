@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:prj/features/chat/chat_screen/view/chat_screen.dart';
+import 'package:prj/features/friends/friends_screen/view/friends_screen.dart';
+import 'package:prj/features/home/home_screen/home.dart';
+import 'package:prj/features/profile/profile_screen/profile.dart';
+import 'package:prj/features/routes/routes_screen/view/routes_screen.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -19,7 +24,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         color: Colors.white,
         border: Border.all(width: 1, color: const Color.fromARGB(
             255, 243, 243, 243)),
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
             topRight: Radius.circular(32), topLeft: Radius.circular(32)),
       ),
       child: Row(
@@ -53,7 +58,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             color: _selectedButtonIndex == 4 ? Colors.black : Colors.grey,
             onPressed: (){setState(() {
               _selectedButtonIndex = 4;
-             // Navigator.pushNamed(context, '/friends');
+              Navigator.pushNamed(context, '/friends');
             });}, 
             icon: Icon(Icons.groups_outlined, size: iconSize)),
 

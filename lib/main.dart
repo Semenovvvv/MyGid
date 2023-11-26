@@ -21,11 +21,6 @@ class Application extends StatelessWidget {
       ),
       onGenerateRoute: (settings) {
         switch (settings.name) {
-          // case '/':
-          //   return MaterialPageRoute(
-          //     builder: (context) => Home(),
-          //     settings: settings,
-          //   );
           case '/routes':
             return PageRouteBuilder(
               pageBuilder: (context, animation, secondaryAnimation) => const Routes(),

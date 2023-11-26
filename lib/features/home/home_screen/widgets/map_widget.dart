@@ -33,34 +33,36 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: YandexMap(
-        logoAlignment :const MapAlignment(horizontal: HorizontalAlignment.center, vertical: VerticalAlignment.top),
-        //mapObjects: _getPlacemarkObjects(context),
-        rotateGesturesEnabled: false,
-        tiltGesturesEnabled: false,
-        onMapCreated: (controller) async {
-          _mapController = controller;
-          await _mapController.moveCamera(
-            CameraUpdate.newCameraPosition(
-              const CameraPosition(
-                // target: Geolocator.getCurrentPosition().then((value) {
-                //   return MapPoint(latitude: value.latitude, longitude: value.longitude);
-                //   }),
-                
-                target : Point(
-                  latitude: 56.14594588,
-                  longitude: 47.22423157,
-                ),
-                zoom: 13,
-              ),
+    return Stack(
+      children: [
+        YandexMap(
+          logoAlignment :const MapAlignment(horizontal: HorizontalAlignment.center, vertical: VerticalAlignment.top),
+          //mapObjects: _getPlacemarkObjects(context),
+          rotateGesturesEnabled: false,
+          tiltGesturesEnabled: false,
+          onMapCreated: (controller) async {
+            _mapController = controller;
+            _fetchCurrentLocation();
+          },
+        ),
+        Align(
+          alignment: const Alignment(0.85, 0.6),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16)
             ),
-          );
-        },
-      ),
+            child:  IconButton(
+              color: Colors.grey,
+              onPressed: () async {
+                await _fetchCurrentLocation();
+              },
+              icon: const Icon(Icons.navigation_outlined), iconSize:  MediaQuery.of(context).size.width * 0.08),
+          )
+        )
+      ],
     );
   }
-
 
   /// Проверка разрешений на доступ к геопозиции пользователя
   Future<void> _initPermission() async {
@@ -84,17 +86,20 @@ class _MapScreenState extends State<MapScreen> {
 
   /// Метод для показа текущей позиции
   Future<void> _moveToCurrentLocation(MapPoint appLatLong) async {
-    (await mapControllerCompleter.future).moveCamera(
-      animation: const MapAnimation(type: MapAnimationType.linear, duration: 1),
+    await _mapController.moveCamera(
       CameraUpdate.newCameraPosition(
-        CameraPosition(
-          target: Point(
+        CameraPosition(            
+          target : Point(
             latitude: appLatLong.lat,
             longitude: appLatLong.long,
           ),
-          zoom: 12,
+          zoom: 13,
         ),
       ),
+      animation: const MapAnimation(
+        type: MapAnimationType.smooth,
+        duration: 1
+      )
     );
   }
 
@@ -159,17 +164,4 @@ class _MapScreenState extends State<MapScreen> {
 //    );
 //  }
 // }
-
-// class CamPosEditorWidget extends StatelessWidget {
-//   late final YandexMapController _controller;
-  
-//   @override
-//   Widget build(BuildContext context) {
-//     return FloatingActionButton(
-//       onPressed: (){
-//         Future<VisibleRegion> visReg = _controller.getFocusRegion();
-//         // _controller.moveCamera(CameraPosition(target: visReg));
-//       }   
-//     );
-//   }
 }
