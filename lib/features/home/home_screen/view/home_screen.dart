@@ -24,7 +24,6 @@ class _HomeState extends State<Home> {
               alignment: Alignment.bottomCenter,
               child: BottomNavBar()
             ),
-            MovePosition()
           ],
         )  
       ),

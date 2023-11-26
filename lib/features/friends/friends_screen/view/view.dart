@@ -1,0 +1,1 @@
+export 'package:prj/features/friends/friends_screen/view/friends_screen.dart';
