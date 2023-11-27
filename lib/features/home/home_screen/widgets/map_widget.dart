@@ -7,7 +7,6 @@ import 'package:yandex_mapkit/yandex_mapkit.dart';
 import 'package:prj/map/app_lat_long.dart';
 import 'package:prj/map/location_service.dart';
 
-
 class MapScreen extends StatefulWidget {
   const MapScreen({Key? key}) : super(key: key);
 
@@ -18,6 +17,21 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> {
   final mapControllerCompleter = Completer<YandexMapController>();
   late final YandexMapController _mapController;
+
+  // Подробнее о стилях карт : https://yandex.ru/dev/mapkit/doc/ru/style#howto
+  String mapStyle = ''' 
+  [
+    {
+      "types" : "point",
+      "tags" : {
+        "all" : ["outdoor"]
+      },
+      "stylers" : {
+        "color" : "f00"
+      }
+    }
+  ]
+  ''';
 
   @override
   void initState() {
@@ -36,12 +50,14 @@ class _MapScreenState extends State<MapScreen> {
     return Stack(
       children: [
         YandexMap(
+          nightModeEnabled: false,
           logoAlignment :const MapAlignment(horizontal: HorizontalAlignment.center, vertical: VerticalAlignment.top),
           mapObjects: _getPlacemarkObjects(context),
           rotateGesturesEnabled: false,
           tiltGesturesEnabled: false,
           onMapCreated: (controller) async {
             _mapController = controller;
+            controller.setMapStyle(mapStyle);
             _fetchCurrentLocation();
           },
         ),
@@ -138,6 +154,44 @@ class _MapScreenState extends State<MapScreen> {
       )
       .toList();
   }
+
+  // Future<void> _showRoute() async {
+  //   List<Point> _points = [
+  //   Point(latitude: 55.755773, longitude: 37.617761), // координаты точки 1
+  //   Point(latitude: 55.753994, longitude: 37.623086), // координаты точки 2
+  //   // добавьте координаты для других точек
+  // ];
+  //   if (_mapController != null && _points.length >= 2) {
+  //     List<DrivingSession> sessions = [];
+  //     for (int i = 0; i < _points.length - 1; i++) {
+  //       sessions.add(
+  //         DrivingSession(
+  //           routePoints: [
+  //             RoutePoint(
+  //               point: _points[i],
+  //               type: PointType.wayPoint,
+  //             ),
+  //             RoutePoint(
+  //               point: _points[i + 1],
+  //               type: PointType.wayPoint,
+  //             ),
+  //           ],
+  //         ),
+  //       );
+  //     }
+  //     await _mapController.showRoutes(
+  //       sessions,
+  //       // Опции для отображения маршрута
+  //       drivingRoutesPainter: DrivingRoutesPainter(
+  //         opacity: 0.9,
+  //         colors: [Colors.blue],
+  //         capType: DrivingRouteCapType.round,
+  //         outlineColor: Colors.black,
+  //       ),
+  //     );
+  //   }
+  // }
+
 }
 
 /// Содержимое модального окна с информацией о точке на карте
