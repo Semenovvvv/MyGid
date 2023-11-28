@@ -10,6 +10,61 @@ class Profile extends StatefulWidget{
   State<Profile> createState() => _ProfileState();
 }
 
+class ProfileTabBar extends StatefulWidget {
+  @override
+  _ProfileTabBarState createState() => _ProfileTabBarState();
+}
+
+class _ProfileTabBarState extends State<ProfileTabBar> with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(50.0), // change height here
+
+        child: AppBar(
+          automaticallyImplyLeading: false, // убираем стрелочку
+          backgroundColor: Color.fromARGB(255, 231, 231, 231),
+          bottom: TabBar(
+            indicatorPadding: EdgeInsets.all(6),
+            controller: _tabController,
+            labelColor: Color.fromARGB(255, 51, 50, 50), // цвет текста выбранного таба
+            unselectedLabelColor: Color.fromARGB(255, 194, 194, 194), // цвет текста невыбранного таба
+            indicator: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: Color.fromARGB(255, 255, 255, 255)),
+            indicatorSize: TabBarIndicatorSize.tab,
+            tabs: [
+              Tab(
+                text: 'Маршруты',
+              ),
+              Tab(
+                text: 'Фотографии',
+              ),
+              Tab(
+                text: 'Отзывы',
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 class _ProfileState extends State<Profile> {
 
@@ -54,7 +109,7 @@ class _ProfileState extends State<Profile> {
                 //шапка
                 Container(
                   height: MediaQuery.of(context).size.height * 0.15,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     color: Color.fromARGB(255, 16, 100, 13),
                    ),
                   child: Row(
@@ -68,6 +123,7 @@ class _ProfileState extends State<Profile> {
                           icon: Icon(
                             Icons.navigate_before,
                             size: MediaQuery.of(context).size.width * 0.08,
+                            color: const Color.fromARGB(255, 255, 255, 255),
                             )
                         ),
                       ),
@@ -396,8 +452,8 @@ class _ProfileState extends State<Profile> {
                 height: 90,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Color.fromRGBO(0, 91, 91, 1.0),
-                  //image: DecorationImage(image: AssetImage("lib/assets/images/bg_profile.png"), fit: BoxFit.cover),
+                  //color: Color.fromRGBO(0, 91, 91, 1.0),
+                  image: DecorationImage(image: AssetImage("lib/assets/images/avatar.jpg"), fit: BoxFit.cover),
                 ),
               ),
             ),

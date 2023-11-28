@@ -32,10 +32,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
         children:[
           IconButton(
             color: _selectedButtonIndex == 1 ? Colors.black : Colors.grey,
-            onPressed: (){ setState(() {
+            onPressed: (){setState(() {
               _selectedButtonIndex = 1;
               Navigator.pushNamed(context, '/');
-             });}, 
+            });},
             icon: Icon(Icons.map_outlined, size: iconSize,)),
 
           IconButton(
