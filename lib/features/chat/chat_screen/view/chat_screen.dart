@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prj/assets/styles/text_styles.dart';
 import 'package:prj/widgets/navigation_bar.dart';
 
 class ChatMember{
@@ -43,11 +44,8 @@ class _ChatState extends State<Chat> {
           backgroundColor: const Color.fromARGB(255, 77, 139, 83),
           surfaceTintColor: const Color.fromARGB(255, 77, 139, 83),
           elevation: 0,
-          title: const Text("Чаты",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 26
-            ),
+          title: Text("Чаты",
+            style: TextStyles.appBarTitleStyle,
           ),
           actions: <Widget>[
             IconButton(

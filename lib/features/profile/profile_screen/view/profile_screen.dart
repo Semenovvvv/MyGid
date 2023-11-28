@@ -1,27 +1,10 @@
-import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:prj/features/profile/profile_screen/widgets/profile_tabbar.dart';
+import 'package:prj/models/route_model.dart';
 import 'package:prj/widgets/navigation_bar.dart';
-
-class Route{
-  String name;
-  int time;
-  int countSteps;
-  int distance;
-  int countComments;
-  List<String> categories = [];
-  Route(
-    {required this.name, 
-      this.time = 0, 
-      this.countSteps = 0, 
-      this.distance = 0, 
-      this.countComments = 0,
-      required this.categories}
-  );
-}
 
 class Profile extends StatefulWidget{
   const Profile({super.key});
-
 
   @override
   State<Profile> createState() => _ProfileState();
@@ -32,7 +15,7 @@ class ProfileTabBar extends StatefulWidget {
   _ProfileTabBarState createState() => _ProfileTabBarState();
 }
 
-class  _ProfileTabBarState extends State<ProfileTabBar> with SingleTickerProviderStateMixin {
+class _ProfileTabBarState extends State<ProfileTabBar> with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -84,29 +67,21 @@ class  _ProfileTabBarState extends State<ProfileTabBar> with SingleTickerProvide
 }
 
 class _ProfileState extends State<Profile> {
-  Color _color = Colors.blue;
-
-  List<Route> routes = [
-    Route(name: 'Маршрут по Волге', time: 15, countSteps: 3000, distance: 3, countComments: 15, categories: ['Архитектура']),
-    Route(name: 'Чебоксарский залив', time: 19, countSteps: 3460, distance: 7, countComments: 18, categories: ['История', 'Военное дело']),
-    Route(name: 'Красная площадь', time: 47, countSteps: 8740, distance: 25, countComments: 65, categories: ['Архитектура', 'Военное дело']),
-    // Добавьте свои маршруты сюда
-  ];
 
   Widget buildRow(int index) {
     List<Widget> containers = [];
     for (String text in routes[index].categories) {
       containers.add(
         Container(
-          margin: EdgeInsets.fromLTRB(0, 0, 6, 0),
-          decoration: BoxDecoration(
+          margin: const EdgeInsets.fromLTRB(0, 0, 6, 0),
+          decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(15)),
             color: Color.fromARGB(255, 150, 197, 156)
           ),
           child: Container(
             margin: EdgeInsets.fromLTRB(8,3,8,3),
             child: Text(text,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w400
@@ -135,7 +110,7 @@ class _ProfileState extends State<Profile> {
                 Container(
                   height: MediaQuery.of(context).size.height * 0.15,
                   decoration: BoxDecoration(
-                  image: DecorationImage(image: AssetImage("lib/assets/images/bg.jpg"), fit: BoxFit.cover),
+                    color: Color.fromARGB(255, 16, 100, 13),
                    ),
                   child: Row(
                     children: [
@@ -162,122 +137,117 @@ class _ProfileState extends State<Profile> {
                       //контейнер, который около аватарки
                       Align(
                         alignment: Alignment.bottomLeft,
-                        child:    Container(
-                        height: MediaQuery.of(context).size.height * 0.115,
-                        
-                        decoration: const BoxDecoration(
-                          color: Color.fromARGB(255, 16, 100, 13),
-                          
+                        child: Container(
+                          height: MediaQuery.of(context).size.height * 0.115,
+                          decoration: const BoxDecoration(
+                            color: Color.fromARGB(255, 16, 100, 13),
+                          ),
                         ),
-                        
                       ),
-                      ),
+
                       Align(
                         alignment: Alignment.bottomLeft,
-                        child:    Container(
-                        height: MediaQuery.of(context).size.height * 0.115,
-                        width: MediaQuery.of(context).size.width * 0.4,
-                        decoration: const BoxDecoration(
-                          color: Color.fromARGB(255, 246, 245, 244),
-                          borderRadius: BorderRadius.only(topLeft:  Radius.circular(32) )
+                        child: Container(
+                          height: MediaQuery.of(context).size.height * 0.115,
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          decoration: const BoxDecoration(
+                            color: Color.fromARGB(255, 246, 245, 244),
+                            borderRadius: BorderRadius.only(topLeft:  Radius.circular(32) )
+                          ),
                         ),
-                        
-                      ),
                       ),
                       
                       Align(
                         alignment: Alignment.bottomRight,
-                        child:   Container(
+                        child: Container(
                           padding: EdgeInsets.only(top: 20),
-                        height:  MediaQuery.of(context).size.height * 0.115,
-                        width:  MediaQuery.of(context).size.width * 0.6,
-                        decoration: const BoxDecoration(
-                          color: Color.fromARGB(255, 246, 245, 244),
-                          borderRadius: BorderRadius.only(topRight:Radius.circular(32) )
+                          height:  MediaQuery.of(context).size.height * 0.115,
+                          width:  MediaQuery.of(context).size.width * 0.6,
+                          decoration: const BoxDecoration(
+                            color: Color.fromARGB(255, 246, 245, 244),
+                            borderRadius: BorderRadius.only(topRight:Radius.circular(32) )
+                          ),
+                          child:  Align(
+                            alignment: Alignment.bottomLeft,
+                            child: Column(
+                              crossAxisAlignment:CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  'Сергей Кузьмин',
+                                  style:TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    color:Color.fromARGB(255, 51, 50, 50),
+                                  ),
+                                ),
+                                Text(
+                                  textAlign: TextAlign.left,
+                                  'г.Чебоксары',
+                                  style:TextStyle(
+                                    fontSize: 12,
+                                    color:Colors.black.withOpacity(0.5),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ),
                         ),
-                        child:  Align(
-                          alignment:  Alignment.bottomLeft,
-                          child:Column(
-                            crossAxisAlignment:CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                'Сергей Кузьмин',
-                                style:TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                  color:Color.fromARGB(255, 51, 50, 50),
-                                ),
-                                ),
-                              Text(
-                                textAlign: TextAlign.left,
-                                'г.Чебоксары',
-                                style:TextStyle(
-                                  fontSize: 12,
-                                  color:Colors.black.withOpacity(0.5),
-                                ),
-                                ),
-                                
-                            ],
-                          )
-                        ),
-                      ),
                       ),
                     ],
                   ),
                 ), 
                 //Кнопка подписаться и три точки
-                 Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Stack(
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Stack(
+                    children: [
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.08,
+                        decoration: const BoxDecoration(
+                          color: Color.fromARGB(243, 243, 243, 243)
+                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 13.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            TextButton(
+                              onPressed: () {
+                                // Обработчик нажатия на кнопку
+                              },
+                              style: ElevatedButton.styleFrom(
+                                minimumSize: Size(MediaQuery.of(context).size.width * 0.77, 50),
+                                backgroundColor: const Color.fromARGB(255, 77, 139, 83),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12)
+                                )
+                              ),
+                              child: const Text(
+                                'Подписаться',
+                                style:TextStyle(
+                                  color: Colors.white,
+                                )
+                                ),
+                            ),
+
                             Container(
-                              height: MediaQuery.of(context).size.height * 0.08,
+                              width: 50,
+                              height: 50,
                               decoration: const BoxDecoration(
-                                color: Color.fromARGB(243, 243, 243, 243)
+                                color: Color.fromARGB(231, 231, 231, 231),
+                                borderRadius: BorderRadius.all(Radius.circular(12))
                               ),
-                              padding:const EdgeInsets.symmetric(horizontal: 13.0),
-                              child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              TextButton(
-                                onPressed: () {
-                                  // Обработчик нажатия на кнопку
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  minimumSize: Size(MediaQuery.of(context).size.width * 0.77, 50),
-                                  backgroundColor: const Color.fromARGB(255, 77, 139, 83),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12)
-                                  )
-                                  
-                                ),
-                                child: const Text(
-                                  'Подписаться',
-                                  style:TextStyle(
-                                    color: Colors.white,
-                                  )
-                                  ),
-                              ),
-                              Container(
-                                width: 50,
-                                height: 50,
-                                decoration: const BoxDecoration(
-                                  color: Color.fromARGB(231, 231, 231, 231),
-                                  borderRadius: BorderRadius.all(Radius.circular(12))
-                                ),
-                                child:IconButton(
+                              child:IconButton(
                                 onPressed: (){},
                                 color: Color.fromARGB(255, 194, 194, 194),
                                 icon: const Icon(Icons.more_horiz),
                               )
-                              )
-                            ],
-                          ) ,
-                            ),
-                          
+                            )
                           ],
-                        )   
+                        ) ,
                       ),
+                    ],
+                  )   
+                ),
                   //Маршруты,подпищики,избранное
                   Align(
                     alignment: Alignment.bottomCenter,
@@ -385,7 +355,7 @@ class _ProfileState extends State<Profile> {
                   alignment: Alignment.bottomCenter,
                   child: Container(
                     height: MediaQuery.of(context).size.height * 0.1,
-                    child: ProfileTabBar(),
+                    child: const ProfileTabBar(),
                   ),
                 ),
                 //список маршрутов
@@ -456,13 +426,9 @@ class _ProfileState extends State<Profile> {
                         },
                       )
                     ),
-                    ),
-                    
-                    
+                    ), 
                   ],
                 ),
-                
-                
               ],
             ),
             //аватарка
@@ -492,8 +458,7 @@ class _ProfileState extends State<Profile> {
               ),
             ),
               ],
-            )
-             
+            )  
           ),
         bottomNavigationBar: const BottomNavBar(),
       ),

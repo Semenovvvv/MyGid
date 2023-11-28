@@ -39,6 +39,7 @@ dependencies:
   geolocator: ^10.1.0
   navigator: ^1.1.1
   convex_bottom_bar: ^3.2.0
+  google_fonts: ^6.1.0
 
 dev_dependencies:
   flutter_test:
@@ -51,27 +52,15 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
 
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
 
-# The following section is specific to Flutter packages.
 flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
 
-#list<String> images = ['lib/assets/images/avatar.jpg']
-
-  assets:
-    - lib/assets/images/avatar.jpg
-    - lib/assets/images/bg.jpg
-
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  #assets:
+    # - assets/images/volga.jpg
+    # - images/a_dot_burr.jpeg
+    # - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
