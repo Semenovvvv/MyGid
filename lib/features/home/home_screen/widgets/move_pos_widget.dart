@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prj/features/home/home_screen/widgets/map_widget.dart';
 
 class MovePosition extends StatefulWidget {
   const MovePosition({ Key? key }) : super(key: key);
@@ -19,7 +20,7 @@ class _MovePosition extends State<MovePosition> {
         ),
         child:  IconButton(
           color: Colors.grey,
-          onPressed: (){},
+          onPressed: (){},//moveToCurrLocation;},
           icon: const Icon(Icons.navigation_outlined), iconSize:  MediaQuery.of(context).size.width * 0.08),
       )
     );

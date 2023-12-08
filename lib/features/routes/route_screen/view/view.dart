@@ -1,0 +1,1 @@
+export 'package:prj/features/routes/route_screen/view/route_screen.dart';
