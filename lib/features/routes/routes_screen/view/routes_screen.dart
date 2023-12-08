@@ -19,7 +19,7 @@ class _RoutesState extends State<Routes> {
     for (String text in routes[index].categories) {
       containers.add(
         Container(
-          margin: EdgeInsets.fromLTRB(0, 0, 6, 0),
+          margin: const EdgeInsets.fromLTRB(0, 0, 6, 0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(15)),
             color: Color.fromARGB(255, 150, 197, 156)
