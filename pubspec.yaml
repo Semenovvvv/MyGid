@@ -39,6 +39,12 @@ dependencies:
   geolocator: ^10.1.0
   navigator: ^1.1.1
   convex_bottom_bar: ^3.2.0
+  google_fonts: ^6.1.0
+  firebase_core: ^2.24.2
+  firebase_database: ^10.3.8
+  cloud_firestore: ^4.13.5
+  firebase_auth: ^4.15.2
+  
 
 dev_dependencies:
   flutter_test:

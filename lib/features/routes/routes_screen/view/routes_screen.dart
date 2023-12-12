@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:prj/assets/styles/text_styles.dart';
 import 'package:prj/features/routes/route_screen/view/route_screen.dart';
@@ -14,9 +15,9 @@ class Routes extends StatefulWidget {
 class _RoutesState extends State<Routes> {
   var index = 1;
 
-  Widget buildRow(int index) {
+  Widget buildRow(int index, AsyncSnapshot<QuerySnapshot> snapshot) {
     List<Widget> containers = [];
-    for (String text in routes[index].categories) {
+    for (String text in snapshot.data?.docs[index].get('categories')) {
       containers.add(
         Container(
           margin: const EdgeInsets.fromLTRB(0, 0, 6, 0),
@@ -38,6 +39,7 @@ class _RoutesState extends State<Routes> {
       );
     }
     return Row(
+      //scrollDirection: Axis.horizontal,
       children: containers,
     );
   }
@@ -97,7 +99,7 @@ class _RoutesState extends State<Routes> {
                 Container(
                   margin: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                     border: Border.all(
+                      border: Border.all(
                       color: Color.fromARGB(255, 243, 243, 243),
                       width: 1,
                     ),
@@ -119,80 +121,91 @@ class _RoutesState extends State<Routes> {
                   ),
                 ),
                 Expanded(
-                  child: ListView.builder(
-                    itemCount: routes.length,
-                    itemBuilder: (context, index){
-                      return Container(
-                        margin: EdgeInsets.fromLTRB(16,0, 16, 16),
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(20))
-                        ),
-                        child:  Column(children: [
-                          ListTile(
-                            title: Text(
-                              routes[index].name,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
+                  // Извлечение данных с БД Firestore
+                  child: StreamBuilder(
+                    stream: FirebaseFirestore.instance.collection('/Routes').snapshots(), 
+                    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot)
+                    {
+                      if (!snapshot.hasData) {
+                        return const Text('Нет записей');
+                      }
+                      return  ListView.builder(
+                        itemCount: snapshot.data?.docs.length,
+                        itemBuilder: (context, index){
+                          return Container(
+                            margin: EdgeInsets.fromLTRB(16,0, 16, 16),
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(Radius.circular(20))
                             ),
-                            subtitle:  Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Column(
+                            child:  Column(children: [
+                              ListTile(
+                                title: Text(
+                                  snapshot.data?.docs[index].get('name'),
+                                  //routes[index].name,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                subtitle:  Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    Column(
                                       children: [
-                                        Text(
-                                          '${routes[index].time} мин  ${routes[index].countSteps} шага (-ов)',
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
                                         Row(
-                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            const Icon(Icons.star, color: Color.fromARGB(255, 249, 194, 98)),
-                                            SizedBox(width: 4.0),
-                                            Text('4.5'),
-                                            Text('   ${routes[index].countComments} оценок'), // Замените на свое число отзывов
+                                            Text(
+                                              '${snapshot.data?.docs[index].get('time')} мин  ${snapshot.data?.docs[index].get('countSteps')} шага (-ов)',
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                            Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                const Icon(Icons.star, color: Color.fromARGB(255, 249, 194, 98)),
+                                                SizedBox(width: 4.0),
+                                                Text('4.5'),
+                                                Text('   ${snapshot.data?.docs[index].get('countComments')} оценок'), // Замените на свое число отзывов
+                                              ],
+                                            ),
                                           ],
-                                        ),
+                                        )
                                       ],
-                                    )
+                                    ),
+                                    
+                                    // Добавляем список категорий
+                                    Container(
+                                      margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                      child: buildRow(index, snapshot)
+                                    ),
                                   ],
                                 ),
-                                
-                                // Добавляем список категорий
-                                Container(
-                                  margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                                  child: buildRow(index)
-                                ),
-                              ],
-                            ),
-                            onTap: (){
-                              Navigator.push(context, 
-                                             PageRouteBuilder(
-                                pageBuilder: (context, animation, secondaryAnimation) => RoutePage(index: index),
-                                transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                                  const begin = Offset(0.0, 1.0);
-                                  const end = Offset.zero;
-                                  const curve = Curves.easeInOut;
+                                onTap: (){
+                                  Navigator.push(context, 
+                                                PageRouteBuilder(
+                                    pageBuilder: (context, animation, secondaryAnimation) => RoutePage(index: index),
+                                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                      const begin = Offset(0.0, 1.0);
+                                      const end = Offset.zero;
+                                      const curve = Curves.easeInOut;
 
-                                  var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-                                  var offsetAnimation = animation.drive(tween);
+                                      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                                      var offsetAnimation = animation.drive(tween);
 
-                                  return SlideTransition(
-                                    position: offsetAnimation,
-                                    child: child,
-                                  );
+                                      return SlideTransition(
+                                        position: offsetAnimation,
+                                        child: child,
+                                      );
+                                    },
+                                  ));
                                 },
-                              ));
-                            },
-                          ),
-                        ]),
+                              ),
+                            ]),
+                          );
+                        },
                       );
                     },
-                  )
+                  ),
                 )
               ],
             ),

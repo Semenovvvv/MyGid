@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
+
 class Route{
   String name;
   int time;
@@ -21,6 +24,14 @@ class Route{
       this.img}
   );
 }
+
+//final DatabaseReference databaseReference = FirebaseDatabase.instance.refFromURL();
+
+// List<String> fetchData() {
+//   databaseReference.child('users').once().then((DataSnapshot snapshot) {
+//     Map<dynamic, dynamic> values = snapshot.value;
+//   });
+// }
 
 List<Route> routes = [
   Route(name: 'Маршрут по Волге', time: 15, countSteps: 3000, distance: 3, countComments: 15, categories: ['Архитектура'],
