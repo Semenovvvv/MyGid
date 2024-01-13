@@ -12,12 +12,15 @@ import 'package:prj/features/routes/routes_screen/routes.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: const FirebaseOptions(
-    apiKey: 'AIzaSyDUsPuPxF8nklcqiaGXcNBmAl1qtDTZGvY', 
-    appId: '1:580461850498:android:fc1ad2c0f10adca19a699b', 
-    messagingSenderId: '580461850498', 
-    projectId: 'mygid-13418',
-    storageBucket: 'mygid-13418.appspot.com'));
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+      apiKey: 'AIzaSyDUsPuPxF8nklcqiaGXcNBmAl1qtDTZGvY', 
+      appId: '1:580461850498:android:fc1ad2c0f10adca19a699b', 
+      messagingSenderId: '580461850498', 
+      projectId: 'mygid-13418',
+      storageBucket: 'mygid-13418.appspot.com'
+    )
+  );
   runApp(const Application());
 }
 

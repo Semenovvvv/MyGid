@@ -139,7 +139,8 @@ class RoutePage extends StatelessWidget{
                         ],
                       ),
                       const RouteTabBar(),
-                      Container(
+                      Expanded(
+                        child: Container(
                         margin: EdgeInsets.fromLTRB(0,0,0,10),
                         padding: EdgeInsets.all(10),
                         decoration: const BoxDecoration(
@@ -155,7 +156,7 @@ class RoutePage extends StatelessWidget{
                               //height: 103,
                               child: Text('${snapshot.data?.docs[index].get('description')}',
                                 overflow: TextOverflow.ellipsis, // Обрезать текст, если не хватает места
-                                maxLines: 8,
+                                maxLines: 16,
                                 style: TextStyle(
                                   fontSize: 14,
                                 ),
@@ -163,6 +164,7 @@ class RoutePage extends StatelessWidget{
                             )
                           ],
                         ),
+                      ),
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width,

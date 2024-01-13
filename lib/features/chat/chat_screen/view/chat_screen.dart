@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:prj/assets/styles/text_styles.dart';
+import 'package:prj/features/chat/chat_friend_screen/view/chat_friend_screen.dart';
 import 'package:prj/widgets/navigation_bar.dart';
+import 'package:navigator/navigator.dart';
 
 class ChatMember{
   Image? leadingImage;
@@ -96,7 +98,28 @@ class _ChatState extends State<Chat> {
                       members[index].lastMessage,
                       overflow: TextOverflow.ellipsis,
                       ),
-                    onTap: (){},
+                    onTap: (){
+                      Navigator.push(context, 
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation, secondaryAnimation) => ChatPage(
+                            chatMember: members[index],
+                          ),
+                          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                            const begin = Offset(1.0, 0.0);
+                            const end = Offset.zero;
+                            const curve = Curves.easeInQuad;
+
+                            var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                            var offsetAnimation = animation.drive(tween);
+
+                            return SlideTransition(
+                              position: offsetAnimation,
+                              child: child,
+                            );
+                          },
+                        )
+                      );
+                    },
                   );
                 }
               ),
