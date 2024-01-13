@@ -3,7 +3,6 @@ import 'package:prj/assets/styles/text_styles.dart';
 import 'package:prj/features/chat/chat_friend_screen/view/chat_friend_screen.dart';
 import 'package:prj/widgets/navigation_bar.dart';
 import 'package:navigator/navigator.dart';
-
 class ChatMember{
   Image? leadingImage;
   String name = "No Name";
