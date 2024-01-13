@@ -1,0 +1,1 @@
+export 'package:prj/features/dialoug/view/dialoug_screen.dart';

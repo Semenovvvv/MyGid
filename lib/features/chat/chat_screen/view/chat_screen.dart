@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prj/assets/styles/text_styles.dart';
 import 'package:prj/widgets/navigation_bar.dart';
+import 'package:prj/features/dialoug/view/dialoug_screen.dart';
 
 class ChatMember{
   Image? leadingImage;
@@ -96,7 +97,13 @@ class _ChatState extends State<Chat> {
                       members[index].lastMessage,
                       overflow: TextOverflow.ellipsis,
                       ),
-                    onTap: (){},
+                    onTap: (){
+                      Navigator.push(context,
+                      MaterialPageRoute(
+                         builder: (context) => Dialoug(),
+                      ),
+                      );
+                    },
                   );
                 }
               ),
