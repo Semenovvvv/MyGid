@@ -1,6 +1,3 @@
-import 'dart:math';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prj/services/auth.dart';
@@ -8,8 +5,6 @@ import 'package:prj/services/auth.dart';
 
 class SignInForm extends StatelessWidget {
   SignInForm({super.key});
-
-  final AuthService _auth = AuthService();
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -102,19 +97,11 @@ class SignInForm extends StatelessWidget {
     );
   }
 
-
   void _signIn(BuildContext context) async{
     String email = _emailController.text;
     String password = _passwordController.text;
-
-    User? user;
-    user = await _auth.signInWithEmailAndPassword(email, password);
-    if (user != null){
-      print('Успешный вход');
+    if (await AuthService.authUser(email, password)){
       Navigator.pushNamed(context, '/home');
-    }
-    else{
-      print('Вход не выполнен');
     }
   }
 }

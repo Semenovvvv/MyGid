@@ -41,7 +41,7 @@ class _ChatState extends State<Chat> {
               Icons.navigate_before,
               size: iconButtonSize,
             )
-          ), 
+          ),
           backgroundColor: const Color.fromARGB(255, 77, 139, 83),
           surfaceTintColor: const Color.fromARGB(255, 77, 139, 83),
           elevation: 0,

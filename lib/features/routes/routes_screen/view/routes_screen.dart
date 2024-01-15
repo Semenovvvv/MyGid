@@ -1,7 +1,12 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
 import 'package:prj/assets/styles/text_styles.dart';
 import 'package:prj/features/routes/route_screen/view/route_screen.dart';
+import 'package:prj/services/auth.dart';
 import 'package:prj/widgets/navigation_bar.dart';
 import 'package:prj/models/route_model.dart';
 
@@ -46,6 +51,7 @@ class _RoutesState extends State<Routes> {
 
   @override
   Widget build(BuildContext context) {
+    var routes = fetchMapRoutes();
     double iconButtonSize = MediaQuery.of(context).size.width * 0.08;
     return SafeArea(
       child: Scaffold(
@@ -123,7 +129,7 @@ class _RoutesState extends State<Routes> {
                 Expanded(
                   // Извлечение данных с БД Firestore
                   child: StreamBuilder(
-                    stream: FirebaseFirestore.instance.collection('/Routes').snapshots(), 
+                    stream: FirebaseFirestore.instance.collection('/Routes').snapshots(),
                     builder: (context, AsyncSnapshot<QuerySnapshot> snapshot)
                     {
                       if (!snapshot.hasData) {
@@ -215,4 +221,34 @@ class _RoutesState extends State<Routes> {
       ),
     );
   }
+
+  Future<List<MapRoute>> fetchMapRoutes() async {
+  final Uri apiUrl = Uri.parse('http://192.168.3.42:8000/api/routes/');
+  try {
+    final response = await http.get(apiUrl,
+      headers: {
+        'Authorization': 'Bearer ${AuthService.token}'
+      }
+    );
+    if (response.statusCode == 200) {
+      final List<dynamic> data = json.decode(response.body);
+      // Преобразуйте данные в объекты класса MapRoute
+      List<MapRoute> Maproutes = data.map((routeData) {
+        return MapRoute(
+          name: routeData['route_name'],
+          time: routeData['time_spent'],
+          countSteps: routeData['number_of_steps'],
+          // categories: List<String>.from(routeData['short_desc']),
+          categories: (routeData['short_desc'].ToList().map((val) {val.toString();})),
+        );
+      }).toList();
+
+      return Maproutes;
+    } else {
+      throw Exception('Ошибка получения данных: ${response.statusCode}');
+    }
+  } catch (e) {
+    throw Exception('Произошла ошибка: $e');
+  }
+}
 }

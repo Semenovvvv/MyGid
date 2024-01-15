@@ -1,41 +1,57 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
+import 'package:prj/models/registeruser_model.dart';
+
 
 class AuthService {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  // Регистрация по электронной почте и паролю
-  Future signUpWithEmailAndPassword(String email, String password) async {
-    try {
-      UserCredential result = await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
-      User? user = result.user;
-      return user;
-    } catch (error) {
-      print(error.toString());
-      return null;
-    }
+  static String? token;
+
+  static Future<http.Response> registerUser(RegistrationModel userData) async {
+    final Uri apiUrl = Uri.parse('http://192.168.3.42:8000/api/register/');
+    final response = await http.post(
+      apiUrl,
+      body: {
+        'email': userData.email,
+        'username': userData.username,
+        'password': userData.password,
+        'password2' : userData.repeatPassword
+      },
+    );
+    http.Response tokenResponse = await getTokenResponse(userData.email, userData.password);
+    token = await getToken(userData.email, userData.password, response);
+    return response;
   }
 
-  // Вход по электронной почте и паролю
-  Future signInWithEmailAndPassword(String email, String password) async {
-    try {
-      UserCredential result = await _auth.signInWithEmailAndPassword(
-          email: email, password: password);
-      User? user = result.user;
-      return user;
-    } catch (error) {
-      print(error.toString());
-      return null;
-    }
+  static Future<http.Response> getTokenResponse(email, password) async{
+    final Uri apiUrl = Uri.parse('http://192.168.3.42:8000/api/token/');
+    final response = await http.post(
+      apiUrl,
+      body: {
+        'email': email,
+        'password': password,
+      },
+    );
+    return response;
   }
 
-  // Выход из системы
-  Future signOut() async {
-    try {
-      return await _auth.signOut();
-    } catch (error) {
-      print(error.toString());
-      return null;
+  static Future<bool> authUser(email, password) async{
+    http.Response response = await getTokenResponse(email, password);
+    token = await getToken(email, password, response);
+    if (response.statusCode >= 200 && response.statusCode < 300)
+    {
+      response.body;
+      return true;
     }
+    return false;
+  }
+
+  static Future<String> getToken(email, password, tokenResponse) async{
+    final Map<String, dynamic> data = json.decode(tokenResponse.body);
+    // return data.map((tokenData) {
+    //     return {token: tokenData['access']};
+    //   }).toString();
+    return data['access'].toString();
   }
 }

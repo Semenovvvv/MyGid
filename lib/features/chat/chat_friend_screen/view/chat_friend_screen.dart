@@ -14,12 +14,13 @@ class ChatPage extends StatefulWidget{
 class _ChatPageState extends State<ChatPage>{
   final ChatMember chatMember;
   _ChatPageState({required this.chatMember});
+
   final TextEditingController _textController = TextEditingController();
   List<Message> _messages = [];
+
   void _handleSubmitted(String text) {
     if (text.isEmpty)
       return;
-
     setState(() {
         _messages.add(
           Message(
@@ -27,7 +28,6 @@ class _ChatPageState extends State<ChatPage>{
             date: DateTime.now())
         );
       });
-    // Очистим поле ввода после отправки
     _textController.clear();
   }
 
@@ -71,7 +71,6 @@ class _ChatPageState extends State<ChatPage>{
               child: Column(
               children: [
                   // Виджет для отображения сообщений (вы можете добавить список сообщений сюда)
-                  //ClipRRect(
                     Expanded(
                       child: ListView.builder(
                         itemCount: _messages.length,
@@ -80,7 +79,6 @@ class _ChatPageState extends State<ChatPage>{
                         },
                       ),
                     ),
-                  
                   _buildBottomChatArea()
               ],
             ),
@@ -143,29 +141,31 @@ class _ChatPageState extends State<ChatPage>{
   }
 
   // Widget _buildMessage(String text) {
-  //   return Row(
-  //     children: [
-  //       Expanded(
-  //         child: Container(
-  //           constraints: BoxConstraints(
-  //             maxWidth: MediaQuery.of(context).size.width * 0.6,
-  //           ),padding: EdgeInsets.all(10.0),
-  //               decoration: BoxDecoration(
-  //                 border: Border.all(),
-  //                 borderRadius: BorderRadius.circular(8.0),
-  //               ),
-  //               child: Text(
-  //                 'Это длинный текст сообщения',
-  //                 style: TextStyle(fontSize: 16.0),
-  //               ),
-  //         )
+  //   return Container(
+  //     margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+  //     padding: EdgeInsets.all(10.0),
+  //     decoration: BoxDecoration(
+  //       color:  Color.fromARGB(255, 146, 146, 146),
+  //       borderRadius: BorderRadius.circular(8.0),
+  //       border: Border.all(
+  //         width: 1,
+  //         color: Colors.black
   //       )
-  //     ],
+  //     ),
+  //     child: Text(
+  //       text,
+  //       style: TextStyle(color: Colors.white),
+  //     ),
   //   );
   // }
 
   Widget _buildMessage(String text) {
     return Container(
+      width: MediaQuery.of(context).size.width * 0.7,
+      child: Row(
+        children: [
+          Expanded(
+            child:  Container(
       margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
       padding: EdgeInsets.all(10.0),
       decoration: BoxDecoration(
@@ -180,18 +180,11 @@ class _ChatPageState extends State<ChatPage>{
         text,
         style: TextStyle(color: Colors.white),
       ),
+    )
+          )
+        ],
+      ),
     );
+    
   }
-    // Container(
-    //   margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
-    //   padding: EdgeInsets.all(10.0),
-    //   decoration: BoxDecoration(
-    //     color: Colors.blue,
-    //     borderRadius: BorderRadius.circular(8.0),
-    //   ),
-    //   child: Text(
-    //     text,
-    //     style: TextStyle(color: Colors.white),
-    //   ),
-    // );
 }

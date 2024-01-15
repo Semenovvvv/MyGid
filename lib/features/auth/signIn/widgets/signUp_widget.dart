@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart';
+import 'package:prj/models/registeruser_model.dart';
 
 import 'package:prj/services/auth.dart';
 
 class SignUpForm extends StatelessWidget {
   SignUpForm({super.key});
 
-  final AuthService _auth = AuthService();
-
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _repeatPasswordController = TextEditingController();
+  var _emailController = TextEditingController();
+  var _usernameController = TextEditingController();
+  var _passwordController = TextEditingController();
+  var _repeatPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +30,27 @@ class SignUpForm extends StatelessWidget {
             ),
             child: TextField(
               controller: _emailController,
+              textAlign: TextAlign.start,
+              textAlignVertical: TextAlignVertical.bottom,
+              decoration: InputDecoration(
+                hintText: 'Электронная почта',
+                hintStyle: TextStyle(
+                  color: Color.fromARGB(255, 194, 194, 194),
+                ),
+                border: InputBorder.none,
+              ),
+            )
+          ),
+          Container(
+             margin: const EdgeInsets.fromLTRB(0, 18, 0, 0),
+            padding: const EdgeInsets.fromLTRB(20, 4, 0, 0),
+            height: MediaQuery.of(context).size.height * 0.08,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+              color: Color.fromARGB(255, 241,241,241),
+            ),
+            child: TextField(
+              controller: _usernameController,
               textAlign: TextAlign.start,
               textAlignVertical: TextAlignVertical.bottom,
               decoration: InputDecoration(
@@ -86,7 +106,6 @@ class SignUpForm extends StatelessWidget {
               ),
             )
           ),
-          
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
@@ -118,17 +137,24 @@ class SignUpForm extends StatelessWidget {
       )
     );
   }
+  
   void _signUp(BuildContext context) async{
     String email = _emailController.text;
+    String username = _usernameController.text;
     String password = _passwordController.text;
     String repeatPassword = _repeatPasswordController.text;
 
-    User? user;
+    var regUser = RegistrationModel(
+      email: email, 
+      username: username, 
+      password: password, 
+      repeatPassword: repeatPassword);
+    var response = Response('', 400);
 
     if(password == repeatPassword){
-      user = await _auth.signUpWithEmailAndPassword(email, password);
+      response = await AuthService.registerUser(regUser);
     }
-    if (user != null){
+    if (response.statusCode == 201){
       Navigator.pushNamed(context, '/home');
     }
   }
