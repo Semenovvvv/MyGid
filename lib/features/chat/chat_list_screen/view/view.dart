@@ -1,0 +1,1 @@
+export 'package:prj/features/chat/chat_list_screen/view/chat_screen.dart';

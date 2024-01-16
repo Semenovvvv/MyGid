@@ -20,7 +20,7 @@ class AuthService {
       },
     );
     http.Response tokenResponse = await getTokenResponse(userData.email, userData.password);
-    token = await getToken(userData.email, userData.password, response);
+    token = await getAccessToken(userData.email, userData.password, response);
     return response;
   }
 
@@ -38,7 +38,7 @@ class AuthService {
 
   static Future<bool> authUser(email, password) async{
     http.Response response = await getTokenResponse(email, password);
-    token = await getToken(email, password, response);
+    token = await getAccessToken(email, password, response);
     if (response.statusCode >= 200 && response.statusCode < 300)
     {
       response.body;
@@ -47,11 +47,8 @@ class AuthService {
     return false;
   }
 
-  static Future<String> getToken(email, password, tokenResponse) async{
+  static Future<String> getAccessToken(email, password, tokenResponse) async{
     final Map<String, dynamic> data = json.decode(tokenResponse.body);
-    // return data.map((tokenData) {
-    //     return {token: tokenData['access']};
-    //   }).toString();
     return data['access'].toString();
   }
 }

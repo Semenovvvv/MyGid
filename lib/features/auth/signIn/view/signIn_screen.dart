@@ -5,7 +5,8 @@ import 'package:prj/features/auth/signIn/widgets/signIn_widget.dart';
 import 'package:prj/features/auth/signIn/widgets/signUp_widget.dart';
 
 class SignIn extends StatefulWidget {
-  const SignIn({super.key});
+  final Function goToRoute;
+  const SignIn(this.goToRoute, {super.key});
 
   @override
   _SignInState createState() => _SignInState();
@@ -89,8 +90,8 @@ class _SignInState extends State<SignIn> {
                     IndexedStack(
                       index: selectedButtonIndex,
                       children: [
-                        SignInForm(),
-                        SignUpForm(),
+                        SignInForm(widget.goToRoute),
+                        SignUpForm(widget.goToRoute),
                       ],
                     ),
                   ],

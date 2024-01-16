@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart';
+import 'package:prj/main.dart';
 import 'package:prj/models/registeruser_model.dart';
 
 import 'package:prj/services/auth.dart';
 
 class SignUpForm extends StatelessWidget {
-  SignUpForm({super.key});
+  final Function goToRoute;
+  SignUpForm(this.goToRoute, {super.key});
 
   var _emailController = TextEditingController();
   var _usernameController = TextEditingController();
@@ -155,7 +157,7 @@ class SignUpForm extends StatelessWidget {
       response = await AuthService.registerUser(regUser);
     }
     if (response.statusCode == 201){
-      Navigator.pushNamed(context, '/home');
+      goToRoute(AllRoutes.home);
     }
   }
 }

@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -11,7 +12,8 @@ import 'package:prj/widgets/navigation_bar.dart';
 import 'package:prj/models/route_model.dart';
 
 class Routes extends StatefulWidget {
-  const Routes({ Key? key }) : super(key: key);
+  final Function goToRoute;
+  const Routes(this.goToRoute, {super.key});
 
   @override
   State<Routes> createState() => _RoutesState();
@@ -217,7 +219,7 @@ class _RoutesState extends State<Routes> {
             ),
           ),
         ),
-        bottomNavigationBar: const BottomNavBar(),
+        bottomNavigationBar: BottomNavBar(widget.goToRoute),
       ),
     );
   }
@@ -233,17 +235,16 @@ class _RoutesState extends State<Routes> {
     if (response.statusCode == 200) {
       final List<dynamic> data = json.decode(response.body);
       // Преобразуйте данные в объекты класса MapRoute
-      List<MapRoute> Maproutes = data.map((routeData) {
-        return MapRoute(
-          name: routeData['route_name'],
-          time: routeData['time_spent'],
-          countSteps: routeData['number_of_steps'],
-          // categories: List<String>.from(routeData['short_desc']),
-          categories: (routeData['short_desc'].ToList().map((val) {val.toString();})),
-        );
-      }).toList();
+       List<MapRoute> mapRoutes = []; //data.map((routeData) {
+      //   return MapRoute(
+      //     name: routeData['route_name'],
+      //     time: routeData['time_spent'],
+      //     countSteps: routeData['number_of_steps'],
+      //     categories: routeData['short_desc'],
+      //   );
+      // });
 
-      return Maproutes;
+      return mapRoutes;
     } else {
       throw Exception('Ошибка получения данных: ${response.statusCode}');
     }

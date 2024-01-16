@@ -19,7 +19,9 @@ List<MapRoute> routes = [
       ),
     ];
 class Profile extends StatefulWidget{
-  const Profile({super.key});
+  final Function goToRoute;
+  const Profile(this.goToRoute, {super.key});
+
 
 
   @override
@@ -423,7 +425,7 @@ class _ProfileState extends State<Profile> {
             )
              
           ),
-        bottomNavigationBar: const BottomNavBar(),
+        bottomNavigationBar: BottomNavBar(widget.goToRoute),
       ),
     );
   }

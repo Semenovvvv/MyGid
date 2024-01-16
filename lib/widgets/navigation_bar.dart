@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:prj/features/chat/chat_screen/view/chat_screen.dart';
-import 'package:prj/features/friends/friends_screen/view/friends_screen.dart';
-import 'package:prj/features/home/home_screen/home.dart';
-import 'package:prj/features/profile/profile_screen/profile.dart';
-import 'package:prj/features/routes/routes_screen/view/routes_screen.dart';
+import 'package:prj/main.dart';
+
 
 class BottomNavBar extends StatefulWidget {
-  const BottomNavBar({super.key});
+  final Function goToRoute;
+  const BottomNavBar(this.goToRoute, {super.key});
 
   @override
   State<StatefulWidget> createState() => _BottomNavBarState();
@@ -14,7 +12,7 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   int _selectedButtonIndex = 0;
-  
+
   @override
   Widget build(BuildContext context) {
     double iconSize = MediaQuery.of(context).size.width * 0.08;
@@ -31,44 +29,44 @@ class _BottomNavBarState extends State<BottomNavBar> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children:[
           IconButton(
-            color: _selectedButtonIndex == 1 ? Colors.black : Colors.grey,
-            onPressed: (){setState(() {
-              _selectedButtonIndex = 1;
-              Navigator.pushNamed(context, '/home');
-            });},
-            icon: Icon(Icons.map_outlined, size: iconSize,)),
+              color: _selectedButtonIndex == 1 ? Colors.black : Colors.grey,
+              onPressed: (){setState(() {
+                _selectedButtonIndex = 1;
+                widget.goToRoute(AllRoutes.home);
+              });},
+              icon: Icon(Icons.map_outlined, size: iconSize,)),
 
           IconButton(
-            color: _selectedButtonIndex == 2 ? Colors.black : Colors.grey,
-            onPressed: (){setState(() {
-              _selectedButtonIndex = 2;
-              Navigator.pushNamed(context, '/routes');
-            });}, 
-            icon: Icon(Icons.route_outlined, size: iconSize)),
+              color: _selectedButtonIndex == 2 ? Colors.black : Colors.grey,
+              onPressed: (){setState(() {
+                _selectedButtonIndex = 2;
+                widget.goToRoute(AllRoutes.routes);
+              });},
+              icon: Icon(Icons.route_outlined, size: iconSize)),
 
           IconButton(
-            color: _selectedButtonIndex == 3 ? Colors.black : Colors.grey,
-            onPressed: (){setState(() {
-              _selectedButtonIndex = 3;
-              Navigator.pushNamed(context, '/profile');
-            });}, 
-            icon: Icon(Icons.person_outline, size: iconSize)),
+              color: _selectedButtonIndex == 3 ? Colors.black : Colors.grey,
+              onPressed: (){setState(() {
+                _selectedButtonIndex = 3;
+                widget.goToRoute(AllRoutes.profile);
+              });},
+              icon: Icon(Icons.person_outline, size: iconSize)),
 
           IconButton(
-            color: _selectedButtonIndex == 4 ? Colors.black : Colors.grey,
-            onPressed: (){setState(() {
-              _selectedButtonIndex = 4;
-              Navigator.pushNamed(context, '/friends');
-            });}, 
-            icon: Icon(Icons.groups_outlined, size: iconSize)),
+              color: _selectedButtonIndex == 4 ? Colors.black : Colors.grey,
+              onPressed: (){setState(() {
+                _selectedButtonIndex = 4;
+                widget.goToRoute(AllRoutes.friends);
+              });},
+              icon: Icon(Icons.groups_outlined, size: iconSize)),
 
           IconButton(
-            color: _selectedButtonIndex == 5 ? Colors.black : Colors.grey,
-            onPressed: (){setState(() {
-              _selectedButtonIndex = 5;
-              Navigator.pushNamed(context, '/chat');
-            });},
-            icon: Icon(Icons.chat_outlined, size: iconSize)),
+              color: _selectedButtonIndex == 5 ? Colors.black : Colors.grey,
+              onPressed: (){setState(() {
+                _selectedButtonIndex = 5;
+                widget.goToRoute(AllRoutes.chat);
+              });},
+              icon: Icon(Icons.chat_outlined, size: iconSize)),
         ],
       )
     );

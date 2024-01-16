@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prj/main.dart';
 import 'package:prj/services/auth.dart';
 
 
 class SignInForm extends StatelessWidget {
-  SignInForm({super.key});
+  final Function goToRoute;
+  SignInForm(this.goToRoute, {super.key});
 
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +103,7 @@ class SignInForm extends StatelessWidget {
     String email = _emailController.text;
     String password = _passwordController.text;
     if (await AuthService.authUser(email, password)){
-      Navigator.pushNamed(context, '/home');
+      goToRoute(AllRoutes.home);
     }
   }
 }

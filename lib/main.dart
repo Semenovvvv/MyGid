@@ -4,11 +4,20 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:prj/features/auth/signIn/signIn.dart';
 
-import 'package:prj/features/chat/chat_screen/chat.dart';
+import 'package:prj/features/chat/chat_list_screen/chat.dart';
 import 'package:prj/features/friends/friends_screen/friends.dart';
 import 'package:prj/features/home/home_screen/home.dart';
 import 'package:prj/features/profile/profile_screen/profile.dart';
 import 'package:prj/features/routes/routes_screen/routes.dart';
+
+class AllRoutes{
+  static const String auth = '/';
+  static const String home = '/home';
+  static const String routes = '/routes';
+  static const String profile = '/profile';
+  static const String friends = '/friends';
+  static const String chat = '/chat';
+}
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,8 +33,22 @@ void main() async{
   runApp(const Application());
 }
 
-class Application extends StatelessWidget {
+class Application extends StatefulWidget {
   const Application({super.key});
+
+  @override
+  State<Application> createState() => _ApplicationState();
+}
+
+class _ApplicationState extends State<Application> {
+  String thisRoute = AllRoutes.auth;
+  bool is404 = false;
+
+  void goToRoute(String route){
+    setState(() {
+      thisRoute = route;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,72 +58,46 @@ class Application extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      onGenerateRoute: (settings) {
-        switch (settings.name) {
-          case '/routes':
-            return PageRouteBuilder(
-              pageBuilder: (context, animation, secondaryAnimation) => const Routes(),
-              transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                // Убираем анимацию
-                return child;
-              },
-              settings: settings,
-              transitionDuration: const Duration(seconds: 0),
-            );
-          case '/home':
-            return PageRouteBuilder(
-              pageBuilder: (context, animation, secondaryAnimation) => const Home(),
-              transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                // Убираем анимацию
-                return child;
-              },
-              settings: settings,
-              transitionDuration: const Duration(seconds: 0),
-          );
-          case '/profile':
-            return PageRouteBuilder(
-              pageBuilder: (context, animation, secondaryAnimation) => const Profile(),
-              transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                // Убираем анимацию
-                return child;
-              },
-              settings: settings,
-              transitionDuration: const Duration(seconds: 0),
-            );
-          case '/friends':
-            return PageRouteBuilder(
-              pageBuilder: (context, animation, secondaryAnimation) => const Friends(),
-              transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                // Убираем анимацию
-                return child;
-              },
-              settings: settings,
-              transitionDuration: const Duration(seconds: 0),
-            );
-          case '/chat':
-            return PageRouteBuilder(
-              pageBuilder: (context, animation, secondaryAnimation) => const Chat(),
-              transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                // Убираем анимацию
-                return child;
-              },
-              settings: settings,
-              transitionDuration: const Duration(seconds: 0),
-            );
-          case '/':
-            return PageRouteBuilder(
-              pageBuilder: (context, animation, secondaryAnimation) => const SignIn(),
-              transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                // Убираем анимацию
-                return child;
-              },
-              settings: settings,
-              transitionDuration: const Duration(seconds: 0),
-            );
-          default:
-            return null;
-        }
-      },
+      home: Navigator(
+        pages: [
+          MaterialPage(
+              child: SignIn(goToRoute),
+          ),
+          if(thisRoute == AllRoutes.home)
+            MaterialPage(
+              child: Home(goToRoute),
+            ),
+          if(thisRoute == AllRoutes.routes)
+            MaterialPage(
+              child: Routes(goToRoute),
+            ),
+          if(thisRoute == AllRoutes.profile)
+            MaterialPage(
+              child: Profile(goToRoute),
+            ),
+          if(thisRoute == AllRoutes.friends)
+            MaterialPage(
+              child: Friends(goToRoute),
+            ),
+          if(thisRoute == AllRoutes.chat)
+            MaterialPage(
+              child: ChatList(goToRoute),
+            ),
+          if (is404)
+            MaterialPage(
+              child: Scaffold(
+                body: Center(
+                  child: Text('404 Ошибка навигации. Перезагрузите приложение.'),
+                ),
+              ),
+            ),
+
+        ],
+          onPopPage: (route, result){
+            return route.didPop(result);
+
+          }
+      ),
     );
   }
-} 
+}

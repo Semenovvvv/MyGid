@@ -6,7 +6,8 @@ import 'package:prj/widgets/navigation_bar.dart';
 
 
 class Home extends StatefulWidget {
-  const Home({ Key? key }) : super(key: key);
+  final Function goToRoute;
+  const Home(this.goToRoute, {super.key});
 
   @override
   State<Home> createState() => _HomeState();
@@ -14,15 +15,25 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
-    return const SafeArea(
+    return SafeArea(
       child: Scaffold(
         body: Stack (
           children: <Widget>[
             MapScreen(),
             Align(
               alignment: Alignment.bottomCenter,
-              child: BottomNavBar()
+              child: BottomNavBar(widget.goToRoute),
             ),
           ],
         )  

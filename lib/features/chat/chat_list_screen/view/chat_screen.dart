@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prj/assets/styles/text_styles.dart';
 import 'package:prj/features/chat/chat_friend_screen/view/chat_friend_screen.dart';
 import 'package:prj/widgets/navigation_bar.dart';
-import 'package:navigator/navigator.dart';
+
 class ChatMember{
   Image? leadingImage;
   String name = "No Name";
@@ -11,14 +11,15 @@ class ChatMember{
   ChatMember({Image? this.leadingImage, required String this.name, required String this.lastMessage});
 }
 
-class Chat extends StatefulWidget {
-  const Chat({ Key? key }) : super(key: key);
+class ChatList extends StatefulWidget {
+  final Function goToRoute;
+  const ChatList(this.goToRoute, {super.key});
 
   @override
-  State<Chat> createState() => _ChatState();
+  State<ChatList> createState() => _ChatState();
 }
 
-class _ChatState extends State<Chat> {
+class _ChatState extends State<ChatList> {
   var index = 1;
   List<ChatMember> members = [
     ChatMember(leadingImage: null ,name: "Иванов Иван", lastMessage: "Привет! Как дела?"),
@@ -124,7 +125,7 @@ class _ChatState extends State<Chat> {
               ),
             ),
           ),
-        bottomNavigationBar: const BottomNavBar(),
+        bottomNavigationBar: BottomNavBar(widget.goToRoute),
       ),
     );
   }

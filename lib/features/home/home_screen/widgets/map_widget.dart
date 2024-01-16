@@ -39,11 +39,11 @@ class _MapScreenState extends State<MapScreen> {
     _initPermission().ignore();
   }
 
-  @override
-  void dispose() {
-    _mapController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _mapController.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {

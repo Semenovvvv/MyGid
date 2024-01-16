@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:prj/assets/styles/text_styles.dart';
-import 'package:prj/features/chat/chat_screen/chat.dart';
+import 'package:prj/features/chat/chat_friend_screen/widgets/reciever_message_widget.dart';
+import 'package:prj/features/chat/chat_list_screen/chat.dart';
 import 'package:prj/models/message_model.dart';
+
+import '../widgets/sender_message_widget.dart';
 
 class ChatPage extends StatefulWidget{
   final ChatMember chatMember;
@@ -69,19 +72,25 @@ class _ChatPageState extends State<ChatPage>{
                 FocusScope.of(context).unfocus();
               },
               child: Column(
-              children: [
-                  // Виджет для отображения сообщений (вы можете добавить список сообщений сюда)
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: _messages.length,
-                        itemBuilder: (context, index) {
-                          return _buildMessage(_messages[index].text);
-                        },
-                      ),
+                children: [
+                    // Виджет для отображения сообщений (вы можете добавить список сообщений сюда)
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: _messages.length,
+                      itemBuilder: (context, index) {
+                        // if (sender){
+                        //   SenderMessageWidget
+                        // }
+                        // else{
+                        //   RecieverMessageWidget
+                        // }
+                        return SenderMessageWidget(_messages[index].text);
+                      },
                     ),
-                  _buildBottomChatArea()
-              ],
-            ),
+                  ),
+                _buildBottomChatArea()
+                ],
+              ),
             )
           )
         ),
@@ -139,25 +148,6 @@ class _ChatPageState extends State<ChatPage>{
       ),
     );
   }
-
-  // Widget _buildMessage(String text) {
-  //   return Container(
-  //     margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
-  //     padding: EdgeInsets.all(10.0),
-  //     decoration: BoxDecoration(
-  //       color:  Color.fromARGB(255, 146, 146, 146),
-  //       borderRadius: BorderRadius.circular(8.0),
-  //       border: Border.all(
-  //         width: 1,
-  //         color: Colors.black
-  //       )
-  //     ),
-  //     child: Text(
-  //       text,
-  //       style: TextStyle(color: Colors.white),
-  //     ),
-  //   );
-  // }
 
   Widget _buildMessage(String text) {
     return Container(
